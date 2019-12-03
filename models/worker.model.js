@@ -71,10 +71,14 @@ const workerSchema = new mongoose.Schema({
   /////////////////POPULATE
   contract: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Contracts", 
+    ref: "Contract", 
     required: true
 
 
+  },
+  workday: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Workday" 
   }
 });
 
@@ -85,4 +89,3 @@ module.exports = Worker
 
 
 
-////////////////////////

@@ -24,7 +24,17 @@ const contractSchema = new mongoose.Schema({
     enum: ["Part time", "Full-time", "Hourly"],
     required: true
   },
-  workingHours: {
+  workerStartTime: {
+    //Podríamos añadir rangos????
+
+    type: Number,
+    required: true
+  },
+  workerEndTime: {
+    type: Number,
+    required: true
+  },
+  shifts: {
     type: String,
     enum: ["Morning shift", "Evening shift", "Night shift"],
     required: true
@@ -35,5 +45,5 @@ const contractSchema = new mongoose.Schema({
   }
 });
 
-const Contract = mongoose.model("Worker", contractSchema);
+const Contract = mongoose.model("Contract", contractSchema);
 module.exports = Contract;

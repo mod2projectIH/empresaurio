@@ -10,10 +10,10 @@ const alertMiddleware = require('./middlewares/alert.middleware')
 /**
  * Handlebars and Mongoose config
  */
-require('./config/hbs.config');
-require('./config/db.config');
-require('./config/mailer.config');
-const session = require('./config/session.config');
+// require('./config/hbs.config');
+// require('./config/db.config');
+// require('./config/mailer.config');
+// const session = require('./config/session.config');
 
 /**
  * Configure express
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.session.user
-  req.currentUser = req.session.user
+  res.locals.currentWorker = req.session.worker
+  req.currentWorker = req.session.worker
   next()
 })
 

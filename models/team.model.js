@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require("./worker.model")
 
 const teamSchema = new mongoose.Schema({
   department: {

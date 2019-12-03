@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require("./worker.model")
 
 const fileSchema = new mongoose.Schema({
   type: {
