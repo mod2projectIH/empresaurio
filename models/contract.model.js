@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
 const contractSchema = new mongoose.Schema({
-  worker: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Workers",
-    required: true
-  },
+// Es necesario el siguiente campo? Ya lo tenemos en el modelo Worker
+
+  // worker: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Workers",
+  //   required: true
+  // },
 
   contractType: {
     type: String,

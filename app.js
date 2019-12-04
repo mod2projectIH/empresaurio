@@ -13,7 +13,7 @@ const alertMiddleware = require('./middlewares/alert.middleware')
 // require('./config/hbs.config');
 // require('./config/db.config');
 // require('./config/mailer.config');
-// const session = require('./config/session.config');
+const session = require('./config/session.config');
 
 /**
  * Configure express
