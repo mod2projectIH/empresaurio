@@ -6,6 +6,6 @@ const authMiddleware = require("../middlewares/auth.middleware");
 
 module.exports = router;
 
-// router.get("/", authMiddleware.isAuthenticated, workerController.index);
+router.get("/", authMiddleware.isAuthenticated, workerController.index);
 router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);
 router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogin);
