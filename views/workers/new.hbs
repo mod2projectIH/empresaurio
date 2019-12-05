@@ -1,14 +1,24 @@
-<form action="/workers" method="POST" enctype="multipart/form-data">
+<form action="/workers/new" method="POST" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="name">Name</label>
-    <input name="name" type="text" class="form-control {{#if error.name }}is-invalid{{/if}}" id="name"
-      placeholder="Enter name" value="{{ user.name }}">
+    <label for="firstName">First Name</label>
+    <input name="firstName" type="text" class="form-control {{#if error.name }}is-invalid{{/if}}" id="firstName"
+      placeholder="Enter first name" value="{{ user.firstName }}">
 
-    {{#if error.name}}
+    {{#if error.firstName}}
     <div class="invalid-feedback">
-      {{error.name.message}}
+      {{error.firstName.message}}
     </div>
     {{/if}}
+<label for="lastName">Last Name</label>
+    <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
+      placeholder="Enter last lastName" value="{{ user.lastName }}">
+
+    {{#if error.lastName}}
+    <div class="invalid-feedback">
+      {{error.lastName.message}}
+    </div>
+    {{/if}}
+
   </div>
 
   <div class="form-group">
@@ -62,7 +72,7 @@
   <div class="form-group">
     <label for="contract">Contract</label>
     <select name="contract">
-      {{#each workerContract}}
+      {{#each workerContracts}}
         <option value={{this}}>{{this}}</option>
       {{/each}}
     </select>

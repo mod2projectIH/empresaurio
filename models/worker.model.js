@@ -44,8 +44,8 @@ const workerSchema = new mongoose.Schema(
     },
 
 
-    profilePic: { type: String, required: true },
-    workTeam: { type: String, required: true },
+    profilePic: { type: String, required: false },
+    workTeam: { type: String, required: false },
     role: {
       type: String,
       enum: ["Worker", "Team leader", "Empresaurio"],

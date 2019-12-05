@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 
 const defaultContract = new mongoose.Schema({
-
+  name: {
+    type: String, 
+    required: true, 
+    unique: true
+  }, 
   contractType: {
     type: String,
     required: true,

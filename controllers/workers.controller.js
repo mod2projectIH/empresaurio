@@ -1,22 +1,31 @@
 const Worker = require("../models/worker.model");
 const Contract = require("../models/contract.model");
+const DefaultContracts = require("../models/defaultContract")
 const Workday = require("../models/workday.model");
-const ContractsList = require("../constants/contracts")
 const RolesList = require("../constants/roles")
 
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
 module.exports.new = (_, res) => {
-  res.render('workers/new', { worker: new Worker(), workerContract : ContractsList, RolesList })
+  DefaultContracts.find()
+  .then(contracts =>{
+    res.render('workers/new', { worker: new Worker(), workerContracts : contracts.map(c => c.name), RolesList })
+
+  }).catch(error=>{
+    console.log(error)
+  })
 }
 module.exports.create = (req, res, next) => {
   const worker = new Worker({
     number: req.body.number,
-    name: req.body.name,
+    name: {
+      firstName: req.body.firstName, 
+      lastName: req.body.lastName
+    }, 
     email: req.body.email,
     password: req.body.password,
     profilePic: req.file ? req.file.url : undefined,
-    workTeam: req.body.workTeam,
+    // workTeam: req.body.workTeam,
     role: req.body.role,
     currentState: req.body.currentState,
     contract:req.body.contract,
@@ -24,9 +33,11 @@ module.exports.create = (req, res, next) => {
   })
 
   worker.save()
+
     .then((worker) => {
-      mailer.sendValidateEmail(worker)
-      res.redirect('/login')
+      // mailer.sendValidateEmail(worker)
+      // res.redirect('/')
+      res.send(worker)
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
