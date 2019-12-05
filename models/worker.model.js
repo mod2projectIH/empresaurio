@@ -66,6 +66,32 @@ const workerSchema = new mongoose.Schema(
   },{ timestamps: true }
 );
 
+// Password configuration
+
+
+workerSchema.pre('save', function (next) {
+  const worker = this;
+
+  if (worker.isModified('password')) {
+    bcrypt.genSalt(SALT_WORK_FACTOR)
+      .then(salt => {
+        return bcrypt.hash(worker.password, salt)
+          .then(hash => {
+            worker.password = hash;
+            next();
+          });
+      })
+      .catch(error => next(error));
+  } else {
+    next();
+  }
+});
+
+workerSchema.methods.checkPassword = function (password) {
+  return bcrypt.compare(password, this.password);
+}
+
+
 workerSchema.virtual("contract", {
   ref: "Contracts",
   localField: "_id",
