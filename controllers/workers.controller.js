@@ -3,8 +3,47 @@ const Contract = require("../models/contract.model");
 const Workday = require("../models/workday.model");
 
 const mongoose = require("mongoose");
+const mailer = require('../config/mailer.config');
 
 // const mailer = require("../config/mailer.config")
+module.exports.new = (_, res) => {
+  res.render('workers/new', { worker: new Worker() })
+}
+module.exports.create = (req, res, next) => {
+  const worker = new Worker({
+    number: req.body.number,
+    name: req.body.name,
+    email: req.body.email,
+    // password: req.body.password,
+    profilePic: req.file ? req.file.url : undefined,
+    workTeam: req.body.workTeam,
+    role: req.body.role,
+    currentState: req.body.currentState,
+    contract:req.body.contract,
+    workday:req.body.workday
+  })
+
+  worker.save()
+    .then((worker) => {
+      mailer.sendValidateEmail(worker)
+      res.redirect('/login')
+    })
+    .catch(error => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.render('workers/new', { worker, error: error.errors })
+      } else if (error.code === 11000) {
+        res.render('workers/new', {
+          worker: {
+            ...worker,
+            password: null
+          },
+          genericError: 'Worker exists'
+        })
+      } else {
+        next(error);
+      }
+    })
+}
 
 module.exports.login = (req, res, next) => {
   res.render("workers/login");
