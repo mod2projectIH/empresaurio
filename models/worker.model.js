@@ -92,6 +92,8 @@ workerSchema.methods.checkPassword = function (password) {
 }
 
 
+//Virtuals
+
 workerSchema.virtual("contract", {
   ref: "Contracts",
   localField: "_id",

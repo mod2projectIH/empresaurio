@@ -10,7 +10,7 @@ const alertMiddleware = require('./middlewares/alert.middleware')
 /**
  * Handlebars and Mongoose config
  */
-// require('./config/hbs.config');
+require('./config/hbs.config');
 require('./config/db.config');
 // require('./config/mailer.config');
 const session = require('./config/session.config');
