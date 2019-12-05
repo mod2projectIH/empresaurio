@@ -45,6 +45,13 @@ module.exports.create = (req, res, next) => {
     })
 }
 
+module.exports.index = (req, res, next) =>{
+  res.render("workers/index")
+
+
+}
+
+
 module.exports.login = (req, res, next) => {
   res.render("workers/login");
 };
