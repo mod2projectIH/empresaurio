@@ -7,40 +7,61 @@ const Workday = require("../models/workday.model");
 const Team = require("../models/team.model");
 const File = require("../models/file.model");
 
-const superUser = new Worker({
-  number: 1,
-  name: {
-    lastName: "Superuser",
-    firstName: "Superuser"
-  },
-  email: "superuser@superuser.com",
-  password: "123123123",
-  profilepic: "../public/images/empresaurio.png",
-  workTeam: "Empresaurio",
-  role: "Empresaurio",
-  isHR: true,
-  break: false,
-  currentState: "Working",
-  contract: "",
-  workday: new Workday({
-    contract: new Contract({
-      // worker:
-      contractType: "Undefined",
-      testPeriod: false,
-      workingTime: "Full-time",
-      workerStartTime: Date.now(),
-      workerEndTime: Date.now(),
-      shifts: "Morning Shift",
-      restTime: 30
-    }),
-    endTime: Date.now(),
-    workedHours: 8,
-    worked: true,
-    break: false,
-    dailyBreakTIme: {
-      start: Date.now(),
-      finish: Date.now()
-    }
-  })
-});
+///////////////////TODO
 
+//// Crear una constante para los contratos y los workdays
+
+Promise.all([Worker.deleteMany(), Contract.deleteMany(), Workday.deleteMany()])
+  .then(() => {
+    const superUser = new Worker({
+      number: 1,
+      name: {
+        lastName: "Superuser",
+        firstName: "Superuser"
+      },
+      email: "superuser@superuser.com",
+      password: "123123123",
+      profilepic: "../public/images/empresaurio.png",
+      workTeam: "Empresaurio",
+      role: "Empresaurio",
+      isHR: true,
+      break: false,
+      currentState: "Working"
+    });
+    superUser
+      .save()
+      .then(worker => {
+        const contract = new Contract({
+          worker: worker.number,
+          contractType: "Undefined",
+          testPeriod: false,
+          workingTime: "Full-time",
+          workerStartTime: Date.now(),
+          workerEndTime: Date.now(),
+          shifts: "Morning Shift",
+          restTime: 30
+        });
+        contract
+          .save()
+          .then(contract => {
+            const workday = new Workday({
+              contract: contract.worker,
+              startTime: Date.now(),
+              endTime: Date.now(),
+              workedHours: 8,
+              worked: true,
+              break: true,
+              dailybreakTime: {
+                start: Date.now(),
+                finish: Date.now()
+              }
+            });
+            workday.save();
+          })
+          .catch(console.error);
+      })
+      .catch(console.error);
+  })
+  .catch(error => {
+    throw new Error(`impossible to add the worker ${error}`);
+  })
