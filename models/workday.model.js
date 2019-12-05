@@ -1,64 +1,64 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 require("./contract.model")
-const workdaySchema = new mongoose.Schema({
-  contract: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Contract',
-    required: true
-  },
-  startTime: {
-    type: Date,
-    required: true
-  },
+require("./worker.model")
+const workdaySchema = new mongoose.Schema(
+  {
+    worker: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Workers",
+      required: true
+    },
 
-  // Añadir algún modo de validar la fecha 
-  //de salida en correspondecia con la entrada.  
-  // Para saber que se ha cumplido la jornada. 
+    contract: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Contract",
+      required: true
+    },
+    startTime: {
+      type: Date,
+      required: true
+    },
 
+    // Añadir algún modo de validar la fecha
+    //de salida en correspondecia con la entrada.
+    // Para saber que se ha cumplido la jornada.
 
+    //A lo mejor el typo Date no es el mejor para las horas.
+    //Conversión a UTC => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
 
-  //A lo mejor el typo Date no es el mejor para las horas. 
-  //Conversión a UTC => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
+    endTime: {
+      type: Date
+    },
 
+    workedHours: {
+      type: Number,
+      default: 0
+    },
+    worked: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
 
-  endTime: {
-    type: Date,
-  },
-
-  workedHours:{
-    type: Number,
-    default: 0
-  }, 
-  worked:{
-    type:Boolean,
-    required: true,
-    default: false
-  },
-  
-  break: {
-    type: Boolean,
-    required: true
-  },
-  dailyBreakTime: {
-    type: {
-      start: {
-        type: Date
-      }, 
-      finish: {
-        type: Date
+    break: {
+      type: Boolean,
+      required: true
+    },
+    dailyBreakTime: {
+      type: {
+        start: {
+          type: Date
+        },
+        finish: {
+          type: Date
+        }
       }
     }
 
-}
-  // [{
-  //   type:_
-  //   }
+  },
+  { timestamps: true }
+);
 
-  //   type: Number,
-  //   required: true
-  // }]
-}, { timestamps: true })
-
-const Workday = mongoose.model('Workday', workdaySchema);
+const Workday = mongoose.model("Workday", workdaySchema);
 
 module.exports = Workday;

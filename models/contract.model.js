@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+require("./contract.model")
+require("./worker.model")
+
 
 const contractSchema = new mongoose.Schema({
-// Es necesario el siguiente campo? Ya lo tenemos en el modelo Worker
 
-  // worker: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Workers",
-  //   required: true
-  // },
+  worker: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Workers",
+    required: true
+  },
 
   contractType: {
     type: String,
@@ -20,7 +22,6 @@ const contractSchema = new mongoose.Schema({
     required: true
   },
 
-  //Tipo de jornada // POPULATE
   workingTime: {
     type: String,
     enum: ["Part time", "Full-time", "Hourly"],

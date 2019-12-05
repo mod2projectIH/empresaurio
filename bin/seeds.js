@@ -7,11 +7,13 @@ const Workday = require("../models/workday.model");
 const Team = require("../models/team.model");
 const File = require("../models/file.model");
 
-///////////////////TODO
+const workerId = []
 
-//// Crear una constante para los contratos y los workdays
 
-Promise.all([Worker.deleteMany(), Contract.deleteMany(), Workday.deleteMany()])
+Promise.all([
+  Worker.deleteMany(), 
+  Contract.deleteMany(), 
+  Workday.deleteMany()])
   .then(() => {
     const superUser = new Worker({
       number: 1,
@@ -31,8 +33,11 @@ Promise.all([Worker.deleteMany(), Contract.deleteMany(), Workday.deleteMany()])
     superUser
       .save()
       .then(worker => {
+        console.log(`A new worker has been created ${worker.number}`)
+         workerId.push(worker._id) 
+
         const contract = new Contract({
-          worker: worker.number,
+          worker: worker._id,
           contractType: "Undefined",
           testPeriod: false,
           workingTime: "Full-time",
