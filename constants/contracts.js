@@ -1,0 +1,1 @@
+module.exports = ["full-time", "part-time"]

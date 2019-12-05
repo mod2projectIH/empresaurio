@@ -1,0 +1,82 @@
+<form action="/workers" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input name="name" type="text" class="form-control {{#if error.name }}is-invalid{{/if}}" id="name"
+      placeholder="Enter name" value="{{ user.name }}">
+
+    {{#if error.name}}
+    <div class="invalid-feedback">
+      {{error.name.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="number">Number</label>
+    <input name="number" type="text" class="form-control {{#if error.number }}is-invalid{{/if}}" id="number"
+      placeholder="Enter number" value="{{ user.number }}">
+
+    {{#if error.number}}
+    <div class="invalid-feedback">
+      {{error.number.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input name="email" type="email" class="form-control {{#if error.email }}is-invalid{{/if}}" id="email"
+      placeholder="Enter email" value="{{ user.email }}">
+
+    {{#if error.email}}
+    <div class="invalid-feedback">
+      {{error.email.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="profilePic">Pic</label>
+    <input name="profilePic" type="file" class="form-control-file {{#if error.profilePic }}is-invalid{{/if}}" id="profilePic"
+      placeholder="Enter profilePic url" value="{{ user.profilePic }}">
+
+    {{#if error.profilePic}}
+    <div class="invalid-feedback">
+      {{error.profilePic.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input name="password" type="password" class="form-control {{#if error.password }}is-invalid{{/if}}" id="password"
+      placeholder="password" value="{{ user.password }}">
+
+    {{#if error.password}}
+    <div class="invalid-feedback">
+      {{error.password.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="bio">Contract</label>
+    <select name="contractlist">
+      {{#each workerContract}}
+        <option value={{this}}>{{this}}</option>
+      {{/each}}
+    </select>
+
+    {{#if error.contract}}
+    <div class="invalid-feedback">
+      {{error.contract.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Sign up
+  </button>
+</form>
+
+
