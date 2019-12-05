@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
+require("./contract.model")
+require("./worker.model")
+
 
 const contractSchema = new mongoose.Schema({
+
   worker: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Workers",
@@ -18,7 +22,6 @@ const contractSchema = new mongoose.Schema({
     required: true
   },
 
-  //Tipo de jornada // POPULATE
   workingTime: {
     type: String,
     enum: ["Part time", "Full-time", "Hourly"],
