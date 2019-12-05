@@ -48,7 +48,7 @@ const workerSchema = new mongoose.Schema(
     workTeam: { type: String, required: true },
     role: {
       type: String,
-      enum: ["worker", "Team leader", "Empresaurio"],
+      enum: ["Worker", "Team leader", "Empresaurio"],
       required: true
     },
     isHR: {

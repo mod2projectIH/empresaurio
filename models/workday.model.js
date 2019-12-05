@@ -3,12 +3,7 @@ require("./contract.model")
 require("./worker.model")
 const workdaySchema = new mongoose.Schema(
   {
-    worker: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Workers",
-      required: true
-    },
-
+    
     contract: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Contract",

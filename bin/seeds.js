@@ -7,7 +7,6 @@ const Workday = require("../models/workday.model");
 const Team = require("../models/team.model");
 const File = require("../models/file.model");
 
-const workerId = []
 
 
 Promise.all([
@@ -23,7 +22,7 @@ Promise.all([
       },
       email: "superuser@superuser.com",
       password: "123123123",
-      profilepic: "../public/images/empresaurio.png",
+      profilePic: "../public/images/empresaurio.png",
       workTeam: "Empresaurio",
       role: "Empresaurio",
       isHR: true,
@@ -34,7 +33,6 @@ Promise.all([
       .save()
       .then(worker => {
         console.log(`A new worker has been created ${worker.number}`)
-         workerId.push(worker._id) 
 
         const contract = new Contract({
           worker: worker._id,
@@ -43,12 +41,14 @@ Promise.all([
           workingTime: "Full-time",
           workerStartTime: Date.now(),
           workerEndTime: Date.now(),
-          shifts: "Morning Shift",
+          shifts: "Morning shift",
           restTime: 30
         });
         contract
           .save()
           .then(contract => {
+            console.log(`Contract has been added to ${worker._id}`)
+
             const workday = new Workday({
               contract: contract.worker,
               startTime: Date.now(),
@@ -61,7 +61,11 @@ Promise.all([
                 finish: Date.now()
               }
             });
-            workday.save();
+            workday.save()
+            .then(workday=>{
+              console.log(`Workday has been added to ${workday._id}`)
+
+            }).catch(console.error);
           })
           .catch(console.error);
       })
