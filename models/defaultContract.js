@@ -1,15 +1,7 @@
 const mongoose = require("mongoose");
-require("./contract.model")
-require("./worker.model")
 
 
-const contractSchema = new mongoose.Schema({
-
-  worker: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Workers",
-    required: true
-  },
+const defaultContract = new mongoose.Schema({
 
   contractType: {
     type: String,
@@ -28,7 +20,6 @@ const contractSchema = new mongoose.Schema({
     required: true
   },
   workerStartTime: {
-    //Podríamos añadir rangos????
 
     type: Number,
     required: true, 
@@ -48,5 +39,5 @@ const contractSchema = new mongoose.Schema({
   }
 });
 
-const Contract = mongoose.model("Contract", contractSchema);
-module.exports = Contract;
+const DefaultContract = mongoose.model("Default_Contract", defaultContract);
+module.exports = DefaultContract;
