@@ -14,7 +14,7 @@ module.exports.create = (req, res, next) => {
     number: req.body.number,
     name: req.body.name,
     email: req.body.email,
-    // password: req.body.password,
+    password: req.body.password,
     profilePic: req.file ? req.file.url : undefined,
     workTeam: req.body.workTeam,
     role: req.body.role,
