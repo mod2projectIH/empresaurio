@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon -e hbs,js,css app.js",
-    "seeds": "node ./bin/seeds"
+    "seeds": "node ./bin/seeds", 
+    "defaultC": "node ./bin/defaultContractsSeeds.js"
   },
   "author": "",
   "license": "ISC",
