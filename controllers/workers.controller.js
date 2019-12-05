@@ -2,11 +2,12 @@ const Worker = require("../models/worker.model");
 const Contract = require("../models/contract.model");
 const Workday = require("../models/workday.model");
 const ContractsList = require("../constants/contracts")
+const RolesList = require("../constants/roles")
 
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
 module.exports.new = (_, res) => {
-  res.render('workers/new', { worker: new Worker(), workerContract : ContractsList })
+  res.render('workers/new', { worker: new Worker(), workerContract : ContractsList, RolesList })
 }
 module.exports.create = (req, res, next) => {
   const worker = new Worker({
@@ -19,7 +20,7 @@ module.exports.create = (req, res, next) => {
     role: req.body.role,
     currentState: req.body.currentState,
     contract:req.body.contract,
-    workday:req.body.workday
+    isHR:req.body.isHR
   })
 
   worker.save()
