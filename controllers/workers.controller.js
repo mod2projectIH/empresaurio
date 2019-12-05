@@ -1,13 +1,12 @@
 const Worker = require("../models/worker.model");
 const Contract = require("../models/contract.model");
 const Workday = require("../models/workday.model");
+const ContractsList = require("../constants/contracts")
 
 const mongoose = require("mongoose");
-const mailer = require('../config/mailer.config');
-
 // const mailer = require("../config/mailer.config")
 module.exports.new = (_, res) => {
-  res.render('workers/new', { worker: new Worker() })
+  res.render('workers/new', { worker: new Worker(), workerContract : ContractsList })
 }
 module.exports.create = (req, res, next) => {
   const worker = new Worker({

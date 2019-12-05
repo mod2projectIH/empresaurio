@@ -60,13 +60,16 @@
   </div>
 
   <div class="form-group">
-    <label for="bio">Bio</label>
-    <textarea name="bio" type="text" class="form-control {{#if error.bio }}is-invalid{{/if}}" id="bio"
-      placeholder="Enter bio" value="{{ user.bio }}" rows="4"></textarea>
+    <label for="bio">Contract</label>
+    <select name="contractlist">
+      {{#each workerContract}}
+        <option value={{this}}>{{this}}</option>
+      {{/each}}
+    </select>
 
-    {{#if error.bio}}
+    {{#if error.contract}}
     <div class="invalid-feedback">
-      {{error.bio.message}}
+      {{error.contract.message}}
     </div>
     {{/if}}
   </div>
@@ -75,3 +78,5 @@
     Sign up
   </button>
 </form>
+
+
