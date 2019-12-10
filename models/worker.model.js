@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 require("./contract.model");
+const ContractsList = require("../constants/contracts")
+const StatesList = require("../constants/states")
 
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const SALT_WORK_FACTOR = 10;
@@ -40,8 +42,11 @@ const workerSchema = new mongoose.Schema(
     },
 
 
-    // profilePic: { type: String, required: true },
-    // workTeam: { type: String, required: true },
+    profilePic: { type: String, required: true },
+    workTeam: { 
+      type: String, 
+      default:null
+     },
     role: {
       type: String,
       enum: ["Worker", "Team leader", "Empresaurio"],
@@ -57,7 +62,8 @@ const workerSchema = new mongoose.Schema(
     },
     currentState: {
       type: String,
-      enum: ["Working", "Down time", "Holidays", "Fired", "Left the company"]
+      enum: StatesList,
+      default: "Working"
     }
   },{ timestamps: true }
 );
@@ -90,19 +96,19 @@ workerSchema.methods.checkPassword = function (password) {
 
 //Virtuals
 
-// workerSchema.virtual("contract", {
-//   ref: "Contracts",
-//   localField: "_id",
-//   foreignField: "worker",
-//   justOne: true
-// });
+workerSchema.virtual("contract", {
+  ref: "Contracts",
+  localField: "_id",
+  foreignField: "worker",
+  justOne: true
+});
 
-// workerSchema.virtual("workday", {
-//   ref: "Workdays",
-//   localField: "_id",
-//   foreignField: "worker",
-//   justOne: true
-// });
+workerSchema.virtual("workday", {
+  ref: "Workdays",
+  localField: "_id",
+  foreignField: "worker",
+  justOne: true
+});
 
 const Worker = mongoose.model("Worker", workerSchema);
 module.exports = Worker;

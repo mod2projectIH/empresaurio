@@ -1,11 +1,7 @@
-<form action="/workers" method="POST">
+<form action="/workers/new" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input name="firstName" type="text" class="form-control {{#if error.firstName }}is-invalid{{/if}}" id="firstName"
-      placeholder="Enter name" value="{{ user.name }}">
-
-    <label for="lastName">Last Name</label>
-    <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
       placeholder="Enter name" value="{{ user.name }}">
 
     {{#if error.firstName}}
@@ -13,6 +9,11 @@
       {{error.firstName.message}}
     </div>
     {{/if}}
+
+    <label for="lastName">Last Name</label>
+    <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
+      placeholder="Enter name" value="{{ user.name }}">
+    
     {{#if error.lastName}}
     <div class="invalid-feedback">
       {{error.lasstName.message}}
@@ -44,7 +45,7 @@
     {{/if}}
   </div>
 
-  {{!-- <div class="form-group">
+  <div class="form-group">
     <label for="profilePic">Pic</label>
     <input name="profilePic" type="file" class="form-control-file {{#if error.profilePic }}is-invalid{{/if}}" id="profilePic"
       placeholder="Enter profilePic url" value="{{ user.profilePic }}">
@@ -54,7 +55,7 @@
       {{error.profilePic.message}}
     </div>
     {{/if}}
-  </div> --}}
+  </div>
 
   <div class="form-group">
     <label for="password">Password</label>
@@ -69,9 +70,21 @@
   </div>
 
   <div class="form-group">
+    <label for="workTeam">Work Team</label>
+    <input name="workTeam" type="text" class="form-control {{#if error.workTeam }}is-invalid{{/if}}" id="workTeam"
+      placeholder="Enter name" value="{{ user.name }}">
+      
+    {{#if error.workTeam}}
+    <div class="invalid-feedback">
+      {{error.workTeam.message}}
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
     <label for="contract">Contract</label>
     <select name="contract">
-      {{#each workerContract}}
+      {{#each ContractsList}}
         <option value={{this}}>{{this}}</option>
       {{/each}}
     </select>
@@ -81,7 +94,7 @@
       {{error.contract.message}}
     </div>
     {{/if}}
-  </div>
+  </div>  
 
   <div class="form-group">
     <label for="role">Role</label>
