@@ -7,7 +7,11 @@ const RolesList = require("../constants/roles")
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
 module.exports.new = (_, res) => {
-  res.render('workers/new', { worker: new Worker(), workerContract : ContractsList, RolesList })
+  res.render('workers/new', {
+    worker: new Worker(),
+    workerContract: ContractsList,
+    RolesList
+  })
 }
 module.exports.create = (req, res, next) => {
   const worker = new Worker({
@@ -20,8 +24,8 @@ module.exports.create = (req, res, next) => {
     workTeam: req.body.workTeam,
     role: req.body.role,
     currentState: req.body.currentState,
-    contract:req.body.contract,
-    isHR:req.body.isHR
+    contract: req.body.contract,
+    isHR: req.body.isHR
   })
   console.log(worker)
   worker.save()
@@ -32,7 +36,10 @@ module.exports.create = (req, res, next) => {
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.render('workers/new', { worker, error: error.errors })
+        res.render('workers/new', {
+          worker,
+          error: error.errors
+        })
       } else if (error.code === 11000) {
         res.render('workers/new', {
           worker: {
@@ -47,11 +54,23 @@ module.exports.create = (req, res, next) => {
     })
 }
 
-module.exports.index = (req, res, next) =>{
+module.exports.index = (req, res, next) => {
   res.render("workers/index")
 
 
 }
+
+// module.exports.home = (req, res, next) => {
+  
+  
+//   res.render("workers/index", { worker: req.params.id })
+//   .then(worker => console.log(worker))
+//   .catch(error=> console.log(error))
+
+
+// }
+
+
 
 
 module.exports.login = (req, res, next) => {
@@ -59,12 +78,19 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.doLogin = (req, res, next) => {
-  const { email, password } = req.body;
+  const {
+    email,
+    password
+  } = req.body;
 
   if (!email || !password) {
-    return res.render("workers/login", { worker: req.body });
+    return res.render("workers/login", {
+      worker: req.body
+    });
   }
-  Worker.findOne({ email }).then(worker => {
+  Worker.findOne({
+    email
+  }).then(worker => {
     if (!worker) {
       res.render("workers/login", {
         worker: req.body,
@@ -81,22 +107,23 @@ module.exports.doLogin = (req, res, next) => {
               password: "Password is not valid"
             }
           });
-        } else{
+        } else {
           req.session.worker = worker
           req.session.genericSuccess = "You are logged logged in. Welcome :)"
+          console.log("Authenticated")
           res.redirect("/")
 
         }
       });
     }
-  }).catch(error=>{
-    if(error instanceof mongoose.Error.ValidationError){
+  }).catch(error => {
+    if (error instanceof mongoose.Error.ValidationError) {
       res.render("workers/login", {
-        worker: req.body, 
+        worker: req.body,
         error: error.error
 
       })
-    }else{
+    } else {
       next(error)
     }
 
@@ -110,4 +137,3 @@ module.exports.logout = (req, res) => {
   res.redirect("/login")
 
 }
- 
