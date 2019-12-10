@@ -1,0 +1,1 @@
+module.exports = ["Working", "Down time", "Holidays", "Fired", "Left the company"]
