@@ -1,12 +1,21 @@
-<form action="/workers" method="POST" enctype="multipart/form-data">
+<form action="/workers" method="POST">
   <div class="form-group">
-    <label for="name">Name</label>
-    <input name="name" type="text" class="form-control {{#if error.name }}is-invalid{{/if}}" id="name"
+    <label for="firstName">First Name</label>
+    <input name="firstName" type="text" class="form-control {{#if error.firstName }}is-invalid{{/if}}" id="firstName"
       placeholder="Enter name" value="{{ user.name }}">
 
-    {{#if error.name}}
+    <label for="lastName">Last Name</label>
+    <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
+      placeholder="Enter name" value="{{ user.name }}">
+
+    {{#if error.firstName}}
     <div class="invalid-feedback">
-      {{error.name.message}}
+      {{error.firstName.message}}
+    </div>
+    {{/if}}
+    {{#if error.lastName}}
+    <div class="invalid-feedback">
+      {{error.lasstName.message}}
     </div>
     {{/if}}
   </div>
@@ -35,7 +44,7 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  {{!-- <div class="form-group">
     <label for="profilePic">Pic</label>
     <input name="profilePic" type="file" class="form-control-file {{#if error.profilePic }}is-invalid{{/if}}" id="profilePic"
       placeholder="Enter profilePic url" value="{{ user.profilePic }}">
@@ -45,7 +54,7 @@
       {{error.profilePic.message}}
     </div>
     {{/if}}
-  </div>
+  </div> --}}
 
   <div class="form-group">
     <label for="password">Password</label>

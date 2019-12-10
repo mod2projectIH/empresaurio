@@ -12,21 +12,17 @@ const workerSchema = new mongoose.Schema(
       unique: true,
       required: true
     },
-    name: {
-      type: {
-        lastName: {
-          type: String,
-          required: [true, "Last Name is required"],
-          trim: true,
-          minlength: [3, "First name needs to be at least 3 characters long"]
-        },
-        firstName: {
-          type: String,
-          required: [true, "First name is required"],
-          trim: true,
-          minlength: [3, "First name needs to be at least 3 characters long"]
-        }
-      }
+    lastName: {
+      type: String,
+      required: [true, "Last Name is required"],
+      trim: true,
+      minlength: [3, "First name needs to be at least 3 characters long"]
+    },
+    firstName: {
+      type: String,
+      required: [true, "First name is required"],
+      trim: true,
+      minlength: [3, "First name needs to be at least 3 characters long"]
     },
     email: {
       type: String,
@@ -44,8 +40,8 @@ const workerSchema = new mongoose.Schema(
     },
 
 
-    profilePic: { type: String, required: true },
-    workTeam: { type: String, required: true },
+    // profilePic: { type: String, required: true },
+    // workTeam: { type: String, required: true },
     role: {
       type: String,
       enum: ["Worker", "Team leader", "Empresaurio"],
@@ -94,19 +90,19 @@ workerSchema.methods.checkPassword = function (password) {
 
 //Virtuals
 
-workerSchema.virtual("contract", {
-  ref: "Contracts",
-  localField: "_id",
-  foreignField: "worker",
-  justOne: true
-});
+// workerSchema.virtual("contract", {
+//   ref: "Contracts",
+//   localField: "_id",
+//   foreignField: "worker",
+//   justOne: true
+// });
 
-workerSchema.virtual("workday", {
-  ref: "Workdays",
-  localField: "_id",
-  foreignField: "worker",
-  justOne: true
-});
+// workerSchema.virtual("workday", {
+//   ref: "Workdays",
+//   localField: "_id",
+//   foreignField: "worker",
+//   justOne: true
+// });
 
 const Worker = mongoose.model("Worker", workerSchema);
 module.exports = Worker;

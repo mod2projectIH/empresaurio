@@ -8,8 +8,8 @@ module.exports = router;
 
 router.get("/", authMiddleware.isAuthenticated, workerController.index);
 
-router.get('/workers/new', authMiddleware.isNotAuthenticated, workerController.new)
-router.post('/workers', authMiddleware.isNotAuthenticated, workerController.create)
+router.get('/workers/new', workerController.new)
+router.post('/workers', workerController.create)
 // router.get('/workers/:token/validate', workerController.validate)
 
 router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);

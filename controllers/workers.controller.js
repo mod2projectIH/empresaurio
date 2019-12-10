@@ -12,21 +12,23 @@ module.exports.new = (_, res) => {
 module.exports.create = (req, res, next) => {
   const worker = new Worker({
     number: req.body.number,
-    name: req.body.name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    profilePic: req.file ? req.file.url : undefined,
+    // profilePic: req.file ? req.file.url : undefined,
     workTeam: req.body.workTeam,
     role: req.body.role,
     currentState: req.body.currentState,
     contract:req.body.contract,
     isHR:req.body.isHR
   })
-
+  console.log(worker)
   worker.save()
     .then((worker) => {
-      mailer.sendValidateEmail(worker)
-      res.redirect('/login')
+      // mailer.sendValidateEmail(worker)
+      console.log(worker)
+      res.redirect('/workers/login')
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
