@@ -1,13 +1,14 @@
 <div>
   <div>
-    <img src="{{worker.profilePic}}" alt="{{worker.firstName}} {{worker.lastName}} profile pic" class="rounded-sm w-100">
-    
-    </div>
-  <h1>Welcome {{worker.firstName}} {{worker.lastName}}</h1>
+    <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
+      class="rounded-sm w-100">
+
+  </div>
+  <h1>Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h1>
 
   {{!-- Buttons for breaks --}}
 
-  {{#if worker.break}}
+  {{#if currentWorker.break}}
   <div>
     <button type="submit" class="btn btn-warning">
       Work
@@ -24,7 +25,7 @@
 </div>
 
 {{!-- A helper has been registered to enable if equals --}}
-{{#ifEquals worker.currentState "Working"}}
+{{#ifEquals currentWorker.currentState "Working"}}
 <div>
   <button type="submit" class="btn btn-warning">
     Work
@@ -33,12 +34,11 @@
 
 {{/ifEquals}}
 
-{{#if worker.isHR}}
+{{!-- If workers is human resources load a partial with a table with all workers --}}
 
-<div>
+{{#if currentWorker.isHR}}
 
-  <h2>Only render if user is Human Resources</h2>
-</div>
+{{> controlPanel}}
 
 {{/if}}
 

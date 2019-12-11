@@ -9,7 +9,19 @@ const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
 
 module.exports.index = (req, res, next) => {
-  res.render("workers/index", {worker: req.currentWorker})
+
+  Worker.find()
+    .then(worker => {
+
+      res.render("workers/index", {
+        currentWorker: req.currentWorker,
+        worker: worker
+      })
+
+
+    }).catch(error => {
+      console.log(error)
+    })
 
 
 }

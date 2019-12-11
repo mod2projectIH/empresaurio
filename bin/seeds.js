@@ -75,3 +75,27 @@ const File = require("../models/file.model");
         })
 
         
+
+        const regularWorker2 = new Worker({
+          number: 4,
+          lastName: "Worker2",
+          firstName: "Worker2",
+          email: "w@w2.com",
+          password: "123123123",
+          profilePic: "../public/images/benito.png",
+          workTeam: "Regular worker team",
+          role: "Worker",
+          isHR: false,
+          break: false,
+          currentState: "Working"
+        });
+        regularWorker2
+          .save()
+          .then(console.log(regularWorker2))
+          .catch(error => {
+            throw new Error(`impossible to add the worker ${error}`);
+
+        })
+
+        
+        
