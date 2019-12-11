@@ -8,15 +8,12 @@ const StatesList = require("../constants/states")
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
 module.exports.new = (_, res) => {
-<<<<<<< HEAD
   res.render('workers/new', {
     worker: new Worker(),
-    workerContract: ContractsList,
-    RolesList
+    ContractsList,
+    RolesList,
+    StatesList
   })
-=======
-  res.render('workers/new', { worker: new Worker(), ContractsList, RolesList, StatesList })
->>>>>>> db8617eff8520e550eaf377976891ef2a551405b
 }
 module.exports.create = (req, res, next) => {
   const worker = new Worker({
@@ -39,13 +36,22 @@ module.exports.create = (req, res, next) => {
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.render('workers/new', { worker, error: error.errors, ContractsList, RolesList, StatesList })
+        res.render('workers/new', {
+          worker,
+          error: error.errors,
+          ContractsList,
+          RolesList,
+          StatesList
+        })
       } else if (error.code === 11000) {
         res.render('workers/new', {
           worker: {
             ...worker,
             password: null
-          }, ContractsList, RolesList, StatesList,
+          },
+          ContractsList,
+          RolesList,
+          StatesList,
           genericError: 'Worker exists'
         })
       } else {
@@ -60,15 +66,6 @@ module.exports.index = (req, res, next) => {
 
 }
 
-// module.exports.home = (req, res, next) => {
-  
-  
-//   res.render("workers/index", { worker: req.params.id })
-//   .then(worker => console.log(worker))
-//   .catch(error=> console.log(error))
-
-
-// }
 
 
 
@@ -110,7 +107,6 @@ module.exports.doLogin = (req, res, next) => {
         } else {
           req.session.worker = worker
           req.session.genericSuccess = "You are logged logged in. Welcome :)"
-          console.log("Authenticated")
           res.redirect("/")
 
         }
