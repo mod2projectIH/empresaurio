@@ -7,6 +7,15 @@ const StatesList = require("../constants/states")
 
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
+
+module.exports.index = (req, res, next) => {
+  res.render("workers/index", {worker: req.currentWorker})
+
+
+}
+
+
+
 module.exports.new = (_, res) => {
   res.render('workers/new', {
     worker: new Worker(),
@@ -59,16 +68,6 @@ module.exports.create = (req, res, next) => {
       }
     })
 }
-
-module.exports.index = (req, res, next) => {
-  res.render("workers/index")
-
-
-}
-
-
-
-
 
 module.exports.login = (req, res, next) => {
   res.render("workers/login");

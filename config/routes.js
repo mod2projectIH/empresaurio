@@ -17,3 +17,6 @@ router.post('/workers/new',upload.single('profilePic'), workerController.create)
 
 router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);
 router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogin);
+
+
+router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
