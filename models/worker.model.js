@@ -56,6 +56,10 @@ const workerSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
+    isWorking: {
+      type: Boolean,
+      default: false
+    },
     break: {
       type: Boolean,
       default: false

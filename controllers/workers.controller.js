@@ -109,4 +109,50 @@ module.exports.logout = (req, res) => {
   res.redirect("/login")
 
 }
+
+module.exports.checkin = (req, res, next) => {
+  res.render("workers/checkin");
+};
+
+module.exports.doCheckin = (req, res, next) => {
+  const { number, password } = req.body;
+
+  if (!number || !password) {
+    return res.render("workers/checkin", { worker: req.body });
+  }
+  Worker.findOne({ number }).then(worker => {
+    if (!worker) {
+      res.render("workers/checkin", {
+        worker: req.body,
+        error: {
+          password: "Password is not valid"
+        }
+      });
+    } else {
+      return worker.checkPassword(password).then(match => {
+        if (!match) {
+          res.render("workers/checkin", {
+            worker: req.body,
+            error: {
+              password: "Password is not valid"
+            }
+          });
+        } else{
+          worker.isWorking = true
+          res.redirect("/")
+        }
+      });
+    }
+  }).catch(error=>{
+    if(error instanceof mongoose.Error.ValidationError){
+      res.render("workers/checkin", {
+        worker: req.body, 
+        error: error.error
+
+      })
+    }else{
+      next(error)
+    }
+  })
+};
  
