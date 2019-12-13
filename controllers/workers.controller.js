@@ -11,6 +11,8 @@ const mongoose = require("mongoose");
 module.exports.index = (req, res, next) => {
 
   Worker.find()
+
+
     .then(worker => {
 
       res.render("workers/index", {
@@ -26,6 +28,25 @@ module.exports.index = (req, res, next) => {
 
 }
 
+module.exports.hrIndex = (req, res, next) => {
+
+  Worker.find()
+
+    .then(worker => {
+
+      res.render("hr/hrIndex", {
+        currentWorker: req.currentWorker,
+        worker: worker
+      })
+
+    }).catch(error => {
+      console.log(error)
+    })
+
+
+
+
+}
 
 
 module.exports.new = (_, res) => {
@@ -138,6 +159,9 @@ module.exports.doLogin = (req, res, next) => {
 
   })
 };
+
+
+
 
 module.exports.logout = (req, res) => {
   req.session.destroy()

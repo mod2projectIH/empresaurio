@@ -64,7 +64,12 @@ const workerSchema = new mongoose.Schema(
       type: String,
       enum: StatesList,
       default: "Working"
-    }
+    }, 
+    isWorking: {
+      type: Boolean, 
+      default: false
+      
+    }, 
   },{ timestamps: true }
 );
 

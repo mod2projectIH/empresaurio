@@ -28,11 +28,24 @@
 {{!-- A helper has been registered to enable if equals --}}
 {{#ifEquals currentWorker.currentState "Working"}}
 <div>
-  <p>You are logged in as a <b>{{currentWorker.role}}</b></p>
+  <p>You are logged in as <b>Human Resources</b>
+  </p>
 </div>
+
 {{/ifEquals}}
 
+{{!-- If workers is human resources load a partial with a table with all workers --}}
 
 <div>
+{{> controlPanel}}
+
+</div>
+<div>
+
+  
+
+
+
   <a href="/logout" class="btn btn-danger">Logout</a>
 </div>
+
