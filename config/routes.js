@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const workerController = require("../controllers/workers.controller");
+const hrController = require("../controllers/hr.controller");
 
 const multer = require ("multer")
 const upload = multer({ dest: './public/uploads/' });
@@ -20,7 +21,7 @@ router.post('/workers/new',upload.single('profilePic'), workerController.create)
 router.get('/hr',authMiddleware.isHR, workerController.hrIndex)
 router.get("/logout", authMiddleware.isNotHR, workerController.logout);
 
-// router.get('/workers/:id', authMiddleware.isHR, workerController.details)
+router.get('/workers/:id', authMiddleware.isHR, hrController.details)
 
 
 router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);

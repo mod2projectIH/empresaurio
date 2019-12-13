@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="d-flex flex-column justify-content-start align-items-top w-25">
+        <a href="/hr" class="btn btn-success">Back</a>
+    </div>
+    <div class="row my-2">
+
+
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+
+
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <h5 class="mb-3">Worker Profile</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Team</h6>
+                            <p>
+                                {{worker.workTeam}} </p>
+                            <h6>Email</h6>
+                            <p><a href="{{worker.email}}">{{worker.email}}</a>
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <!--/row-->
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img src="https://www.formulatv.com/images/noticias/57900/57976/9_5694c31dfa.jpg"
+                class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            
+            <label class="custom-file">
+                <input type="file" id="file" class="custom-file-input">
+                
+                    <form action="/workers/{{worker.id}}/upload" method="POST">
+                    <button class="btn" type="submit">
+                        <a href="/workers/{{worker.id}}/upload">Upload file</a>
+                         </button>
+                        </form> 
+               
+            </label>
+        </div>
+
+    </div>
+
+    <div class="col-md-12">
+        <h5 class="mt-2"><span class="fa fa-file float-right"></span>Worker files</h5>
+        {{> uploadedFiles}}
+    </div>
+</div>
+
+{{!-- 
+<div class="container-fluid">
+    <h1>Small Grid</h1>
+    <p>The following example will result in a 25%/75% split on small, medium and large devices. On extra small devices,
+        it will stack (100% width).</p>
+    <p>Resize the browser window to see the effect.</p>
+
+    <div class="card">
+        <div class="card-img-top" src="{{worker.profilePic}}">
+            
+            <div class="row">
+                <div class="col-sm-3" style="background-color:yellow;">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.<br>
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </div>
+                <div class="col-sm-9" style="background-color:pink;">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                    dicta sunt explicabo.
+                </div>
+            </div>
+        
+    </div>
+</div> --}}

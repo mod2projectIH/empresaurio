@@ -24,7 +24,6 @@ module.exports.isNotAuthenticated = (req, res, next) => {
 
 module.exports.isHR = (req, res, next) => {
   const worker = req.session.worker
-  console.log(req.session)
 
   if (req.session.worker && worker.isHR) {
     next()

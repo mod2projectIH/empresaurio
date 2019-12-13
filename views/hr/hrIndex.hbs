@@ -1,51 +1,62 @@
 <div>
-  <div>
-    <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
-      class="rounded-sm w-100">
+  <div class="container">
+    <div class="card  mb-5">
 
+      <div class="d-flex flex-column justify-content-start align-items-center">
+        <img
+          src="{{worker.profilePic}}"
+          alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic" class="card-img-left">
+        <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
+
+      </div>
+
+      {{!-- Buttons for breaks --}}
+
+      {{#if currentWorker.break}}
+      <div class="d-flex flex-column justify-content-end align-items-center">
+
+        <div>
+          <button type="submit" class="btn btn-danger" id="{{currentWorker.id}}">
+            Press here to start your break
+          </button>
+        </div>
+      </div>
+      {{else}}
+      <div class="d-flex flex-column justify-content-end align-items-center">
+
+        <div>
+          <button type="submit" class="btn btn-danger">
+            Don't work
+          </button>
+        </div>
+      </div>
+      {{/if}}
+      {{!-- A helper has been registered to enable if equals --}}
+      {{#ifEquals currentWorker.currentState "Working"}}
+      <div class="d-flex flex-column justify-content-end align-items-center">
+        <p>You are logged in as <b>Human Resources</b>
+        </p>
+      </div>
+
+      {{/ifEquals}}
+
+    </div>
+
+
+
+
+    {{!-- If workers is human resources load a partial with a table with all workers --}}
+
+    <div>
+      {{> controlPanel}}
+
+    </div>
   </div>
-  <h1>Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h1>
-
-  {{!-- Buttons for breaks --}}
-
-  {{#if currentWorker.break}}
-  <div>
-    <button type="submit" class="btn btn-warning break-btn" id="{{currentWorker.id}}">
-      Press here to start your break
-    </button>
-
-  </div>
-  {{else}}
-  <div>
-    <button type="submit" class="btn btn-warning break-btn">
-      Don't work
-    </button>
-  </div>
-  {{/if}}
-
-</div>
-
-{{!-- A helper has been registered to enable if equals --}}
-{{#ifEquals currentWorker.currentState "Working"}}
-<div>
-  <p>You are logged in as <b>Human Resources</b>
-  </p>
-</div>
-
-{{/ifEquals}}
-
-{{!-- If workers is human resources load a partial with a table with all workers --}}
-
-<div>
-{{> controlPanel}}
-
-</div>
-<div>
-
-  
-
-
-
+<div class="d-flex flex-column justify-content-end align-items-center mt-5">
   <a href="/logout" class="btn btn-danger">Logout</a>
 </div>
+
+  </div>
+
+
 
