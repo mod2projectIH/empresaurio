@@ -137,9 +137,17 @@ module.exports.doLogin = (req, res, next) => {
             }
           });
         } else {
+
+            
           req.session.worker = worker
           req.session.genericSuccess = "You are logged logged in. Welcome :)"
-          res.redirect("/")
+          if(worker.isHR){
+
+            res.redirect("/hr")
+          }else{
+            res.redirect("/")
+          }
+          
 
         }
       });
@@ -164,7 +172,10 @@ module.exports.doLogin = (req, res, next) => {
 
 
 module.exports.logout = (req, res) => {
-  req.session.destroy()
-  res.redirect("/login")
+    req.session.destroy()
+    res.redirect("/login")
+
+ 
 
 }
+

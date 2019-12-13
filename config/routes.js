@@ -18,6 +18,7 @@ router.post('/workers/new',upload.single('profilePic'), workerController.create)
 
 //Human resources controller
 router.get('/hr',authMiddleware.isHR, workerController.hrIndex)
+router.get("/logout", authMiddleware.isNotHR, workerController.logout);
 
 // router.get('/workers/:id', authMiddleware.isHR, workerController.details)
 
