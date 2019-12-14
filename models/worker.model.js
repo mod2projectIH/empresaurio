@@ -59,8 +59,7 @@ const workerSchema = new mongoose.Schema(
     },
     workday:{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Workday",
-      required: true
+      ref: "Workday"
     },
     isWorking: {
       type: Boolean,
@@ -74,7 +73,12 @@ const workerSchema = new mongoose.Schema(
       type: String,
       enum: StatesList,
       default: "Working"
-    }
+    }, 
+    isWorking: {
+      type: Boolean, 
+      default: false
+      
+    }, 
   },{ timestamps: true }
 );
 

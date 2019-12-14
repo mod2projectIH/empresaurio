@@ -4,7 +4,7 @@
 
       <div class="d-flex flex-column justify-content-start align-items-center">
         <img
-          src="{{currentWorker.profilePic}}"
+          src="{{worker.profilePic}}"
           alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic" class="card-img-left">
         <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
 
@@ -34,7 +34,7 @@
       {{!-- A helper has been registered to enable if equals --}}
       {{#ifEquals currentWorker.currentState "Working"}}
       <div class="d-flex flex-column justify-content-end align-items-center">
-        <p>You are logged in as <b>Worker</b>
+        <p>You are logged in as <b>Human Resources</b>
         </p>
       </div>
 
@@ -45,8 +45,12 @@
 
 
 
+    {{!-- If workers is human resources load a partial with a table with all workers --}}
 
-   
+    <div>
+      {{> controlPanel}}
+
+    </div>
   </div>
 <div class="d-flex flex-column justify-content-end align-items-center mt-5">
   <a href="/logout" class="btn btn-danger">Logout</a>
