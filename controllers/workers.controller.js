@@ -74,7 +74,7 @@ module.exports.create = (req, res, next) => {
   worker.save()
     .then((worker) => {
       // mailer.sendValidateEmail(worker)
-      res.redirect('/workers/login')
+      res.redirect('/')
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -180,19 +180,19 @@ module.exports.logout = (req, res) => {
 }
 
 
-module.exports.checkin = (req, res, next) => {
-  res.render("workers/checkin");
+module.exports.check = (req, res, next) => {
+  res.render("workers/check");
 };
 
-module.exports.doCheckin = (req, res, next) => {
+module.exports.doCheck = (req, res, next) => {
   const { number, password } = req.body;
 
   if (!number || !password) {
-    return res.render("workers/checkin", { worker: req.body });
+    return res.render("workers/check", { worker: req.body });
   }
   Worker.findOne({ number }).then(worker => {
     if (!worker) {
-      res.render("workers/checkin", {
+      res.render("workers/check", {
         worker: req.body,
         error: {
           password: "Password is not valid"
@@ -201,22 +201,15 @@ module.exports.doCheckin = (req, res, next) => {
     } else {
       return worker.checkPassword(password).then(match => {
         if (!match) {
-          res.render("workers/checkin", {
+          res.render("workers/check", {
             worker: req.body,
             error: {
               password: "Password is not valid"
             }
           });
         } else{
-          worker.isWorking = true
-          const day = new Date()
-          const workday = new Workday ({
-            day: day.getFullYear(),
-            startTime: day.getHours()
-          })
-          workday.save()
-          worker.workday = workday
-          worker.save()
+          worker.isWorking ? checkout(worker) : checkin(worker)
+          worker.save()         
           .then(() => {
             res.redirect('/')
           })
@@ -226,7 +219,7 @@ module.exports.doCheckin = (req, res, next) => {
     }
   }).catch(error=>{
     if(error instanceof mongoose.Error.ValidationError){
-      res.render("workers/checkin", {
+      res.render("workers/check", {
         worker: req.body, 
         error: error.error
 
@@ -236,54 +229,29 @@ module.exports.doCheckin = (req, res, next) => {
     }
   })
 };
-
-// module.exports.checkout = (req, res, next) => {
-//   res.render("workers/checkin");
-// };
-
-// module.exports.doCheckout = (req, res, next) => {
-//   const { number, password } = req.body;
-
-//   if (!number || !password) {
-//     return res.render("workers/checkin", { worker: req.body });
-//   }
-//   Worker.findOne({ number }).then(worker => {
-//     if (!worker) {
-//       res.render("workers/checkin", {
-//         worker: req.body,
-//         error: {
-//           password: "Password is not valid"
-//         }
-//       });
-//     } else {
-//       return worker.checkPassword(password).then(match => {
-//         if (!match) {
-//           res.render("workers/checkin", {
-//             worker: req.body,
-//             error: {
-//               password: "Password is not valid"
-//             }
-//           });
-//         } else{
-//           worker.isWorking = false
-//           worker.save()
-//           .then(() => {
-//             res.redirect('/')
-//           })
-//           .catch(next)
-//         }
-//       });
-//     }
-//   }).catch(error=>{
-//     if(error instanceof mongoose.Error.ValidationError){
-//       res.render("workers/checkin", {
-//         worker: req.body, 
-//         error: error.error
-
-//       })
-//     }else{
-//       next(error)
-//     }
-//   })
-// };
  
+
+const checkin = (worker => {
+  worker.isWorking = true
+  const day = new Date()
+  const workday = new Workday ({
+    day: day.getFullYear(),
+    startTime: day.getHours()
+  })
+  workday.save()
+  worker.workday = workday
+  return worker
+})
+
+const checkout = (worker => {
+  worker.isWorking = false
+  const day = new Date()
+  Workday.findOne(worker.workday._id)
+  .then(workday => {
+    workday.endTime = day.getHours()
+    workday.save()
+    console.log(workday)
+  }).catch(error => error)
+  console.log(worker)  
+  return worker  
+})
