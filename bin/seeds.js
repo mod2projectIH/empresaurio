@@ -8,69 +8,94 @@ const Team = require("../models/team.model");
 const File = require("../models/file.model");
 
 
-
-Promise.all([
-  Worker.deleteMany(), 
-  Contract.deleteMany(), 
-  Workday.deleteMany()])
-  .then(() => {
-    const superUser = new Worker({
-      number: 1,
-      name: {
+      const superUser = new Worker({
+        number: 1,
         lastName: "Superuser",
-        firstName: "Superuser"
-      },
-      email: "superuser@superuser.com",
-      password: "123123123",
-      profilePic: "../public/images/empresaurio.png",
-      workTeam: "Empresaurio",
-      role: "Empresaurio",
-      isHR: true,
-      break: false,
-      currentState: "Working"
-    });
-    superUser
-      .save()
-      .then(worker => {
-        console.log(`A new worker has been created ${worker.number}`)
+        firstName: "Superuser",
+        email: "superuser@superuser.com",
+        password: "123123123",
+        profilePic: "../public/images/empresaurio.png",
+        workTeam: "Empresaurio",
+        role: "Empresaurio",
+        isHR: true,
+        break: false,
+        currentState: "Working"
+      });
+      superUser
+        .save()
+        .then(console.log(superUser))
+        .catch(error => {
+          throw new Error(`impossible to add the worker ${error}`);
 
-        const contract = new Contract({
-          worker: worker._id,
-          contractType: "Undefined",
-          testPeriod: false,
-          workingTime: "Full-time",
-          workerStartTime: Date.now(),
-          workerEndTime: Date.now(),
-          shifts: "Morning shift",
-          restTime: 30
+        })
+
+
+        const HR = new Worker({
+          number: 2,
+          lastName: "Human",
+          firstName: "Resources",
+          email: "HR@HR.com",
+          password: "123123123",
+          profilePic: "../public/images/hr.png",
+          workTeam: "Human resource team",
+          role: "Worker",
+          isHR: true,
+          break: false,
+          currentState: "Working"
         });
-        contract
+        HR
           .save()
-          .then(contract => {
-            console.log(`Contract has been added to ${worker._id}`)
+          .then(console.log(HR))
+          .catch(error => {
+            throw new Error(`impossible to add the worker ${error}`);
 
-            const workday = new Workday({
-              contract: contract.worker,
-              startTime: Date.now(),
-              endTime: Date.now(),
-              workedHours: 8,
-              worked: true,
-              break: true,
-              dailybreakTime: {
-                start: Date.now(),
-                finish: Date.now()
-              }
-            });
-            workday.save()
-            .then(workday=>{
-              console.log(`Workday has been added to ${workday._id}`)
 
-            }).catch(console.error);
-          })
-          .catch(console.error);
-      })
-      .catch(console.error);
-  })
-  .catch(error => {
-    throw new Error(`impossible to add the worker ${error}`);
-  })
+        })
+      
+
+        const regularWorker = new Worker({
+          number: 3,
+          lastName: "Worker",
+          firstName: "Worker",
+          email: "w@w.com",
+          password: "123123123",
+          profilePic: "../public/images/benito.png",
+          workTeam: "Regular worker team",
+          role: "Worker",
+          isHR: false,
+          break: false,
+          currentState: "Working"
+        });
+        regularWorker
+          .save()
+          .then(console.log(regularWorker))
+          .catch(error => {
+            throw new Error(`impossible to add the worker ${error}`);
+
+        })
+
+        
+
+        const regularWorker2 = new Worker({
+          number: 4,
+          lastName: "Worker2",
+          firstName: "Worker2",
+          email: "w@w2.com",
+          password: "123123123",
+          profilePic: "../public/images/benito.png",
+          workTeam: "Regular worker team",
+          role: "Worker",
+          isHR: false,
+          break: false,
+          currentState: "Working"
+        });
+        regularWorker2
+          .save()
+          .then(console.log(regularWorker2))
+          .catch(error => {
+            throw new Error(`impossible to add the worker ${error}`);
+
+        })
+
+        
+        

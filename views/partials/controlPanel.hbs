@@ -1,0 +1,35 @@
+<div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Work Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each worker}}
+      <tr>
+
+
+        <th scope="row">{{this.number}}</th>
+        <td>{{this.firstName}}</td>
+        <td>{{this.lastName}}</td>
+        <td>{{this.workTeam}}</td>
+        <td>
+          <form action="/workers/{{this.id}}" method="GET"><a href="/workers/{{this.id}}" class="btn btn-success">See
+              details</a></form>
+        </td>
+
+
+
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+
+
+</div>

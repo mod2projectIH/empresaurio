@@ -1,0 +1,47 @@
+<div>
+  <div>
+    <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
+      class="rounded-sm w-100">
+
+  </div>
+  <h1>Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h1>
+
+  {{!-- Buttons for breaks --}}
+
+  {{#if currentWorker.break}}
+  <div>
+    <button type="submit" class="btn btn-warning">
+      Work
+    </button>
+  </div>
+  {{else}}
+  <div>
+    <button type="submit" class="btn btn-warning">
+      Don't work
+    </button>
+  </div>
+  {{/if}}
+
+</div>
+
+{{!-- A helper has been registered to enable if equals --}}
+{{#ifEquals currentWorker.currentState "Working"}}
+<div>
+  <button type="submit" class="btn btn-warning">
+    Work
+  </button>
+</div>
+
+{{/ifEquals}}
+
+{{!-- If workers is human resources load a partial with a table with all workers --}}
+
+{{#if currentWorker.isHR}}
+
+{{> controlPanel}}
+
+{{/if}}
+
+
+<a href="/logout" class="btn btn-danger">Logout</a>
+</div>
