@@ -8,7 +8,7 @@
         <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
 
       </div>
-
+    
       {{!-- Buttons for breaks --}}
 
       {{#if currentWorker.break}}
@@ -40,10 +40,19 @@
       {{/ifEquals}}
 
     </div>
+      <div>
+
+        <a href="/workers/checkin" class="btn btn-warning w-100">Check In</a>
+      </div>
 
 
+    {{#if currentWorker.isHR}}
+    <div>
+      {{> controlPanel}}
 
-
+    </div>
+    <div ><a href="/workers/new" class="btn btn-success">Create a new user</a></div>
+    {{/if}}
 
 
   </div>

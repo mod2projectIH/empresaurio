@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 require("./contract.model");
 const ContractsList = require("../constants/contracts")
 const StatesList = require("../constants/states")
+const Worday = require ("../models/workday.model")
 
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const SALT_WORK_FACTOR = 10;
@@ -53,6 +54,14 @@ const workerSchema = new mongoose.Schema(
       required: true
     },
     isHR: {
+      type: Boolean,
+      default: false
+    },
+    workday:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Workday"
+    },
+    isWorking: {
       type: Boolean,
       default: false
     },
@@ -108,12 +117,12 @@ workerSchema.virtual("contract", {
   justOne: true
 });
 
-workerSchema.virtual("workday", {
-  ref: "Workdays",
-  localField: "_id",
-  foreignField: "worker",
-  justOne: true
-});
+// workerSchema.virtual("workday", {
+//   ref: "Workdays",
+//   localField: "_id",
+//   foreignField: "worker",
+//   justOne: true
+// });
 
 const Worker = mongoose.model("Worker", workerSchema);
 module.exports = Worker;

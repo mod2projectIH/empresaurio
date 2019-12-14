@@ -4,9 +4,13 @@ require("./worker.model")
 const workdaySchema = new mongoose.Schema(
   {
     
-    contract: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Contract",
+    // contract: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Contract",
+    //   required: true
+    // },
+    day: {
+      type: Date,
       required: true
     },
     startTime: {
@@ -29,15 +33,9 @@ const workdaySchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
-    worked: {
-      type: Boolean,
-      required: true,
-      default: false
-    },
-
     break: {
       type: Boolean,
-      required: true
+      deafault: false
     },
     dailyBreakTime: {
       type: {

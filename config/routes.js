@@ -8,24 +8,26 @@ const upload = multer({ dest: './public/uploads/' });
 
 
 const authMiddleware = require("../middlewares/auth.middleware");
+const checkMiddleware = require("../middlewares/check.middleware");
 
 module.exports = router;
 
 router.get("/", authMiddleware.isAuthenticated, workerController.index);
-router.get('/workers/new', workerController.new)
+router.get('/workers/new',authMiddleware.isHR, workerController.new)
 router.post('/workers/new',upload.single('profilePic'), workerController.create)
 
-//Check worker details => we have to use a middleware in order to let them access to this route. 
 
-//Human resources controller
-router.get('/hr',authMiddleware.isHR, workerController.hrIndex)
-router.get("/logout", authMiddleware.isNotHR, workerController.logout);
+router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);
+router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogin);
 
-router.get('/workers/:id', authMiddleware.isHR, hrController.details)
-
-
-router.get("/login", authMiddleware.isNotAuthenticated, authMiddleware.isNotHR, workerController.login);
-router.post("/login", authMiddleware.isNotAuthenticated, authMiddleware.isNotHR, workerController.doLogin);
-
+router.get("/workers/checkin", authMiddleware.isAuthenticated, workerController.checkin);
+router.post("/workers/checkin", authMiddleware.isAuthenticated, workerController.doCheckin);
+// router.get("/workers/checkout", authMiddleware.isAuthenticated, checkMiddleware.isWorked, workerController.checkout);
+// router.post("/workers/checkout", authMiddleware.isAuthenticated, checkMiddleware.isWorked, workerController.doCheckout);
 
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
+
+
+router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
+
+
