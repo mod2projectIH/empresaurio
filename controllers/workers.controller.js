@@ -15,10 +15,19 @@ module.exports.index = (req, res, next) => {
 
     .then(worker => {
 
-      res.render("workers/index", {
-        currentWorker: req.currentWorker,
-        worker: worker
-      })
+      if(req.currentWorker.isHR){
+
+        res.render("workers/index", {
+          currentWorker: req.currentWorker,
+          worker: worker
+        })
+
+      }else{
+        res.render("workers/index", {
+          worker
+        })
+      }
+      
 
 
     }).catch(error => {
@@ -28,25 +37,25 @@ module.exports.index = (req, res, next) => {
 
 }
 
-module.exports.hrIndex = (req, res, next) => {
+// module.exports.hrIndex = (req, res, next) => {
 
-  Worker.find()
+//   Worker.find()
 
-    .then(worker => {
+//     .then(worker => {
 
-      res.render("hr/hrIndex", {
-        currentWorker: req.currentWorker,
-        worker: worker
-      })
+//       res.render("hr/hrIndex", {
+//         currentWorker: req.currentWorker,
+//         worker: worker
+//       })
 
-    }).catch(error => {
-      console.log(error)
-    })
-
-
+//     }).catch(error => {
+//       console.log(error)
+//     })
 
 
-}
+
+
+// }
 
 
 module.exports.new = (_, res) => {
@@ -141,12 +150,8 @@ module.exports.doLogin = (req, res, next) => {
             
           req.session.worker = worker
           req.session.genericSuccess = "You are logged logged in. Welcome :)"
-          if(worker.isHR){
-
-            res.redirect("/hr")
-          }else{
+        
             res.redirect("/")
-          }
           
 
         }

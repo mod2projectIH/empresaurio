@@ -1,4 +1,6 @@
 module.exports.isAuthenticated = (req, res, next) => {
+
+
   if (req.session.worker) {
     next()
   } else {
@@ -8,6 +10,8 @@ module.exports.isAuthenticated = (req, res, next) => {
 }
 module.exports.isNotAuthenticated = (req, res, next) => {
   if (req.session.worker) {
+
+
     res.redirect('/');
   } else {
     next()
@@ -22,3 +26,4 @@ module.exports.isHR = (req, res, next) => {
     res.redirect('/');
   }
 }
+
