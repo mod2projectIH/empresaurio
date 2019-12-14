@@ -1,11 +1,3 @@
-function like(event) {
-  const button = event.target
+const axios = require("axios")
 
-  axios.get(`/worker/${worker.id}`)
-    .then(response => {
-      const details = button.querySelector(".details")
 
-      details.innerText = "<h1> Hello </h1>"
-    })
-    .catch(console.error)
-}

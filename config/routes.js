@@ -31,3 +31,4 @@ router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
 router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
 
 
+router.get('/workers/:id/deploy', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.checkWorker)

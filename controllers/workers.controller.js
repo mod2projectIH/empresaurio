@@ -242,6 +242,17 @@ module.exports.doCheckin = (req, res, next) => {
   })
 };
 
+
+//Deploy
+
+module.exports.checkWorker = (req, res, next) =>{
+
+
+
+
+}
+
+
 // module.exports.checkout = (req, res, next) => {
 //   res.render("workers/checkin");
 // };
