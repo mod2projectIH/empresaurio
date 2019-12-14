@@ -5,8 +5,8 @@
     res.locals.genericSuccess = req.session.genericSuccess
     req.session.genericSuccess = null
 
-    res.locals.currentUser = req.session.worker
-    req.currentUser = req.session.worker
+    res.locals.currentWorker = req.session.worker
+    req.currentWorker = req.session.worker
 
     next()
   }
