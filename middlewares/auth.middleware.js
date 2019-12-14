@@ -38,7 +38,7 @@ module.exports.isNotHR = (req, res, next) => {
   if (req.session.worker && worker.isHR) {
 
 
-    res.redirect('/');
+    res.redirect('/hr');
   } else {
     next()
   }

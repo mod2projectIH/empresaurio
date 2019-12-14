@@ -24,8 +24,8 @@ router.get("/logout", authMiddleware.isNotHR, workerController.logout);
 router.get('/workers/:id', authMiddleware.isHR, hrController.details)
 
 
-router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);
-router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogin);
+router.get("/login", authMiddleware.isNotAuthenticated, authMiddleware.isNotHR, workerController.login);
+router.post("/login", authMiddleware.isNotAuthenticated, authMiddleware.isNotHR, workerController.doLogin);
 
 
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
