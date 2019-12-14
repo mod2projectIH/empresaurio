@@ -173,15 +173,9 @@ module.exports.doLogin = (req, res, next) => {
   })
 };
 
-
-
-
 module.exports.logout = (req, res) => {
     req.session.destroy()
     res.redirect("/login")
-
- 
-
 }
 
 
@@ -191,8 +185,8 @@ module.exports.check = (req, res, next) => {
 
 module.exports.doCheck = (req, res, next) => {
   const { number, password } = req.body;
-
-  if (!number || !password) {
+  const numberInt = Number(number)
+  if (!number || !password || req.currentWorker.number !== numberInt) {
     return res.render("workers/check", { worker: req.body });
   }
   Worker.findOne({ number }).then(worker => {
@@ -240,8 +234,9 @@ const checkin = (worker => {
   worker.isWorking = true
   const day = new Date()
   const workday = new Workday ({
-    day: day.getFullYear(),
-    startTime: day.getHours()
+    day: `${day.getDate()}-${day.getMonth()+1}-${day.getFullYear()}`,
+    startTime: day,
+    worker: worker
   })
   workday.save()
   worker.workday = workday
@@ -253,10 +248,13 @@ const checkout = (worker => {
   const day = new Date()
   Workday.findOne(worker.workday._id)
   .then(workday => {
-    workday.endTime = day.getHours()
+    workday.endTime = day
+    time = workday.endTime - workday.startTime
+    hours = Math.floor((time / (1000 * 60 * 60)))
+    min = Math.floor((time / (1000 * 60)))
+    sec = Math.floor((time / 1000))
+    workday.workedHours = `${hours} h ${min} min ${sec} sec`
     workday.save()
-    console.log(workday)
   }).catch(error => error)
-  console.log(worker)  
   return worker  
 })

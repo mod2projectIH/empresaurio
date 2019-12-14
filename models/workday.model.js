@@ -4,13 +4,13 @@ require("./worker.model")
 const workdaySchema = new mongoose.Schema(
   {
     
-    // contract: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Contract",
-    //   required: true
-    // },
+    contract: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Contract",
+      // required: true
+    },
     day: {
-      type: Date,
+      type: String,
       required: true
     },
     startTime: {
@@ -46,7 +46,12 @@ const workdaySchema = new mongoose.Schema(
           type: Date
         }
       }
-    }
+    },
+    worker: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Worker",
+      required: true
+    },
 
   },
   { timestamps: true }
