@@ -1,9 +1,9 @@
-<div class="container-fluid">
+
   <div class="container-fluid mb-5">
-    <div class="card  mb-5">
+    <div class="d-flex justify-content-center border-primary card w-50 mb-5">
       <div class="d-flex flex-column justify-content-start align-items-center">
         <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
-          class="card-img-left">
+          class="card-img-left w-75 justify-content-center rounded mt-3">
         <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
       </div>
 
@@ -18,7 +18,7 @@
       </div>
       {{else}}
       <div class="d-flex flex-column justify-content-end align-items-center">
-        <div>
+        <div class="mb-5">
           <button type="submit" class="btn btn-danger">
             Don't work
           </button>
@@ -46,4 +46,3 @@
   <div class="d-flex flex-column justify-content-end align-items-center mt-5">
     <a href="/logout" class="btn btn-danger">Logout</a>
   </div>
-</div>
