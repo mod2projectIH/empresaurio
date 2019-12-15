@@ -1,6 +1,5 @@
-<div>
-
-  <table class="table table-sm table-hover table-striped">
+<div class="container-fluid">
+  <table class="table table-sm table-hover table-striped mb-5">
     <thead>
       <tr>
         <th scope="col">Number</th>
@@ -12,29 +11,21 @@
     <tbody>
       {{#each worker}}
       <tr>
-
-
         <th scope="row">{{this.number}}</th>
         <td>{{this.firstName}}</td>
         <td>{{this.lastName}}</td>
         <td>{{this.workTeam}}</td>
         <td>
           <a href="/workers/{{this.id}}" class="btn btn-success">See
-              details</a>
+            details</a>
         </td>
         <td>
-          <a href="/workers/:id/deploy" class="btn btn-danger details" >Deploy</a>
-
-
+          <button class="btn btn-danger details" onclick="deploy({{toString this.id}})" id={{this.id}}>Deploy
+          {{!-- <a href="/workers/{{this.id}}/deploy" class="btn btn-danger details">Deploy</a> --}}
+          </button>
         </td>
-
-
-
       </tr>
       {{/each}}
-
     </tbody>
   </table>
-
-
 </div>

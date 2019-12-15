@@ -10,7 +10,8 @@ const mongoose = require("mongoose");
 
 module.exports.index = (req, res, next) => {
 
-  Worker.find()
+  const sorter = {number : 1}
+  Worker.find().sort(sorter)
 
 
     .then(worker => {
@@ -260,3 +261,5 @@ const checkout = (worker => {
   console.log(worker)  
   return worker  
 })
+
+
