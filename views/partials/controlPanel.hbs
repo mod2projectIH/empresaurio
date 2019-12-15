@@ -1,6 +1,18 @@
-<div>
+<div class="container-fluid">
+  {{!-- <div class="card">
+    <div class="card-header">
+      <h5><b>
+          {{worker.firstName}} {{worker.lastName}} worked hours today
+        </b>
+      </h5>
+    </div>
+    <div class="card-body">
+      <h5>Hola</h5>
 
-  <table class="table table-sm table-hover table-striped">
+    </div>
+
+  </div> --}}
+  <table class="table table-sm table-hover table-striped mb-5" id="control">
     <thead>
       <tr>
         <th scope="col">Number</th>
@@ -11,25 +23,29 @@
     </thead>
     <tbody>
       {{#each worker}}
-      <tr>
 
-
+      <tr id="{{this.number}}">
         <th scope="row">{{this.number}}</th>
         <td>{{this.firstName}}</td>
         <td>{{this.lastName}}</td>
         <td>{{this.workTeam}}</td>
         <td>
           <a href="/workers/{{this.id}}" class="btn btn-success">See
-              details</a>
+            details</a>
+        </td>
+        <td>
+          <button class="btn btn-danger details" onclick="deploy({{toString this}})" id={{this.id}}>Deploy
+            {{!-- <a href="/workers/{{this.id}}/deploy" class="btn btn-danger details">Deploy</a> --}}
+          </button>
         </td>
 
 
-
       </tr>
+
+
       {{/each}}
 
     </tbody>
+
   </table>
-
-
 </div>

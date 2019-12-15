@@ -10,7 +10,8 @@ const mongoose = require("mongoose");
 
 module.exports.index = (req, res, next) => {
 
-  Worker.find()
+  const sorter = {number : 1}
+  Worker.find().sort(sorter)
 
 
     .then(worker => {
@@ -210,7 +211,7 @@ module.exports.doCheck = (req, res, next) => {
           worker.isWorking ? checkout(worker) : checkin(worker)
           worker.save()         
           .then(() => {
-            res.redirect('/')
+            res.redirect("/")
           })
           .catch(next)
         }
@@ -250,11 +251,13 @@ const checkout = (worker => {
   .then(workday => {
     workday.endTime = day
     time = workday.endTime - workday.startTime
-    hours = Math.floor((time / (1000 * 60 * 60)))
-    min = Math.floor((time / (1000 * 60)))
-    sec = Math.floor((time / 1000))
-    workday.workedHours = `${hours} h ${min} min ${sec} sec`
+    hours = Math.floor((time / (1000 * 60 * 60))%24)
+    min = Math.floor((time / (1000 * 60))%60)
+    sec = Math.floor((time / 1000)%60)
+    workday.workedHours = `${hours}h ${min}min ${sec}sec`
     workday.save()
   }).catch(error => error)
   return worker  
 })
+
+
