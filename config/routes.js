@@ -30,3 +30,6 @@ router.post('/workers/:id/upload', authMiddleware.isAuthenticated, authMiddlewar
 
 
 router.get('/workers/:id/deploy', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)
+
+//Files
+
