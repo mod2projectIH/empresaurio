@@ -25,7 +25,7 @@ module.exports.index = (req, res, next) => {
 
       }else{
         res.render("workers/index", {
-          worker
+          currentWorker: req.currentWorker
         })
       }
       

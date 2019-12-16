@@ -1,8 +1,7 @@
-
-
 const express = require("express");
 const router = express.Router();
 const workerController = require("../controllers/workers.controller");
+const workdaysController = require ("../controllers/workdays.controller")
 const hrController = require("../controllers/hr.controller");
 const fileController = require("../controllers/file.controller");
 const multer = require ("multer")
@@ -20,6 +19,7 @@ router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogi
 
 router.get("/workers/check", authMiddleware.isAuthenticated, workerController.check);
 router.post("/workers/check", authMiddleware.isAuthenticated, workerController.doCheck)
+router.get("/workdays", authMiddleware.isAuthenticated, workdaysController.index)
 
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
 router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
