@@ -211,6 +211,8 @@ module.exports.doCheck = (req, res, next) => {
             }
           });
         } else{
+
+          console.log(worker + "AAAAAAAAAAAAAAAAAAAAAAAAAAA")
           worker.isWorking ? checkout(worker) : checkin(worker)
           worker.save()         
           .then(() => {
@@ -235,6 +237,14 @@ module.exports.doCheck = (req, res, next) => {
  
 
 const checkin = (worker => {
+  Worker.findByIdAndUpdate(worker._id, {$set: {isWorking: true}}, (error, updatedDocument)=>{
+    console.log(worker + "BBBBBBBBBBBBBBBBBBBBBBBB")
+    worker.save()
+    if(error){
+      console.log("worker.isWorking could't be updated")
+    }
+    console.log(updatedDocument)
+  })
   worker.isWorking = true
   const day = new Date()
   const workday = new Workday ({
@@ -248,7 +258,14 @@ const checkin = (worker => {
 })
 
 const checkout = (worker => {
-  worker.isWorking = false
+  Worker.findByIdAndUpdate(worker.id, {$set: {isWorking: false}}, (error, updatedDocument)=>{
+    console.log(worker + "CCCCCCCCCCCCCCCCCCCCCCCCCCC")
+    worker.save()
+    if(error){
+      console.log("worker.isWorking could't be updated")
+    }
+    console.log(updatedDocument.isWorking)
+  })
   const day = new Date()
   Workday.findOne(worker.workday._id)
   .then(workday => {
