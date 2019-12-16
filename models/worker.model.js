@@ -60,6 +60,10 @@ const workerSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Workday",
 		},
+		file:{
+			type: mongoose.Schema.Types.ObjectId, 
+			ref: "Files"
+		},
 		isWorking: {
 			type: Boolean,
 			default: false,

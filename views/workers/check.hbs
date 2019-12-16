@@ -1,8 +1,8 @@
 <form action="/workers/check" method="POST" class="mb-3" autocomplete="off">
   <div class="form-group">
-    <label for="number">Number</label>
+    <label for="number">Worker number</label>
     <input name="number" type="number" class="form-control {{#if error.number }}is-invalid{{/if}}" id="number"
-      placeholder="Enter name" value="{{ worker.number }}">
+      placeholder="Enter your worker number" value="{{ worker.number }}">
     {{#if error.number}}
     <div class="invalid-feedback">
       {{error.number}}

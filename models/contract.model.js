@@ -28,7 +28,6 @@ const contractSchema = new mongoose.Schema({
     required: true
   },
   workerStartTime: {
-    //Podríamos añadir rangos????
 
     type: Number,
     required: true, 

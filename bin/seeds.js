@@ -16,6 +16,7 @@ const superUser = new Worker({
 	profilePic: "/public/images/empresaurio.png",
 	workTeam: "Empresaurio",
 	role: "Empresaurio",
+	
 	isHR: true,
 	break: false,
 	currentState: "Working",
@@ -36,6 +37,7 @@ const HR = new Worker({
 	profilePic: "../public/images/hr.png",
 	workTeam: "Human resource team",
 	role: "Worker",
+	
 	isHR: true,
 	break: false,
 	currentState: "Working",
@@ -55,6 +57,7 @@ const regularWorker = new Worker({
 	profilePic: "../public/images/benito.png",
 	workTeam: "Regular worker team",
 	role: "Worker",
+	
 	isHR: false,
 	break: false,
 	currentState: "Working",
@@ -75,6 +78,7 @@ const regularWorker2 = new Worker({
 	profilePic: "../public/images/benito.png",
 	workTeam: "Regular worker team",
 	role: "Worker",
+	
 	isHR: false,
 	break: false,
 	currentState: "Working",
