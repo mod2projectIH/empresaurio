@@ -1,20 +1,22 @@
 const Worker = require("../models/worker.model");
+const File = require("../models/file.model");
 
 const mongoose = require("mongoose");
 
 module.exports.details = (req, res, next) => {
 	const id = req.params.id;
 
-	Worker.findOne({ _id: id })
-    .populate("file")
+	File.find({worker: id})
+    .populate("worker")
     
+		// .then(file => {
+		// 	File.find({worker: id})
+			.then(files=>{
+				res.render("hr/details", { files, worker:files.worker });
 
-		.then(worker => {
-     console.log(worker.file.type)
-			
-			res.render("hr/details", { worker: worker, file: worker.file });
-		})
-		.catch(next);
+			}).catch(next)
+		// })
+// 		.catch(next);
 };
 
 module.exports.deployDetails = (req, res, next) => {

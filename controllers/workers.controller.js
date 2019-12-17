@@ -14,13 +14,13 @@ module.exports.index = (req, res, next) => {
   Worker.find().sort(sorter)
 
 
-    .then(worker => {
+    .then(workers => {
 
       if(req.currentWorker.isHR){
 
         res.render("workers/index", {
           currentWorker: req.currentWorker,
-          worker: worker
+          workers: workers
         })
 
       }else{
@@ -85,7 +85,8 @@ module.exports.create = (req, res, next) => {
   worker.save()
   
     .then((worker) => {
-      console.log()
+      console.log(worker)
+      
       // mailer.sendValidateEmail(worker)
       res.redirect('/')
     })

@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="type">Type</label>
       <input name="type" type="text" class="form-control {{#if error.type }}is-invalid{{/if}}" id="firstName"
-        placeholder="Enter name" value="{{ currentWorker.name }}">
+        placeholder="Enter type" value="{{ file.type }}">
       {{#if error.type}}
       <div class="invalid-feedback">
         {{error.type.message}}
@@ -13,8 +13,8 @@
     </div>
     <div class="form-group">
       <label for="type">Description</label>
-      <input name="type" type="text" class="form-control {{#if error.type }}is-invalid{{/if}}" id="firstName"
-        placeholder="Enter description" value="{{ currentWorker.name }}">
+      <input name="description" type="text" class="form-control {{#if error.type }}is-invalid{{/if}}" id="firstName"
+        placeholder="Enter description" value="{{ file.description }}">
       {{#if error.type}}
       <div class="invalid-feedback">
         {{error.type.message}}
@@ -24,7 +24,7 @@
     <div class="form-group">
       <label for="file">Upload file</label>
       <input name="file" type="file" class="form-control-file {{#if error.file }}is-invalid{{/if}}" id="profilePic"
-        placeholder="Enter profilePic url" value="{{ currentWorker.file }}">
+        placeholder="Upload file" value="{{ file.file }}">
       {{#if error.file}}
       <div class="invalid-feedback">
         {{error.file.message}}

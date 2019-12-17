@@ -11,11 +11,11 @@
       </tr>
     </thead>
     <tbody>
-      {{#each worker.file}}
+      {{#each files}}
       <tr>
         <th scope="row">{{this.createdAt}}</th>
-        <td>{{this.description}}</td>
         <td>{{this.type}}</td>
+        <td>{{this.description}}</td>
         <td>{{worker.firstName}} {{worker.lastName}}</td>
         <td><a href="{{this.id}}">Download file</a></td>
 

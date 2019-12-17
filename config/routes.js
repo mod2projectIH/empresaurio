@@ -24,8 +24,8 @@ router.get("/workdays", authMiddleware.isAuthenticated, workdaysController.index
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
 router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
 
-router.get('/workers/:id/upload', authMiddleware.isAuthenticated, authMiddleware.isHR, fileController.uploadFile)
-router.post('/workers/:id/upload', authMiddleware.isAuthenticated, authMiddleware.isHR, upload.single('file'), fileController.doUploadFile)
+router.get('/workers/:id/upload', authMiddleware.isAuthenticated,  fileController.uploadFile)
+router.post('/workers/:id/upload', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFile)
 
 
 

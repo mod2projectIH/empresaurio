@@ -14,9 +14,10 @@ module.exports.uploadFile = (req, res, next) => {
 	.populate('file')
 	
 		.then(worker => {
-			worker.files.forEach(file=> console.log(file.type))
+			console.log(worker)
 			res.render("files/upload", {
 				worker,
+				
 			});
 		})
 		.catch(next);
@@ -26,11 +27,12 @@ module.exports.doUploadFile = (req, res, next) => {
 	console.log(req.currentWorker._id + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 	const file = new File({
 		type: req.body.type,
-		
+		description: req.body.type, 
 		worker: req.currentWorker._id,
 		file: req.file ? `/uploads/${req.file.filename}` : undefined
 		
 	});
+	console.log(file)
 	file
 		.save()
 		.then(file => {
@@ -38,7 +40,7 @@ module.exports.doUploadFile = (req, res, next) => {
 				console.log(updatedDocument)
 				file.save()
 			})
-			console.log(`${file.name} has been created`);
+			console.log(`${file.description} has been created`);
 			res.redirect("/");
 		})
 		.catch(error => console.log(error));
