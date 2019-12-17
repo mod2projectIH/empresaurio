@@ -1,0 +1,35 @@
+{{> filter}}
+<div class="container-fluid">
+  <table class="table table-sm table-hover table-striped mb-5" id="control">
+    <thead>
+      <tr>
+        <th scope="col">Day</th>
+        <th scope="col">Start</th>
+        <th scope="col">End</th>
+        <th scope="col">Work Hours</th>
+        <th scope="col">Worker</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each workdays}}
+      <tr id="{{this.day}}">
+        <th scope="row">{{this.day}}</th>
+        <td>{{this.startTime}}</td>
+        {{#if this.endTime}}
+          <td>{{this.endTime}}</td>
+          <td>{{this.workedHours}}</td>
+        {{else}}
+          <td colspan="2">Working</td>
+        {{/if}}
+        <td>{{this.worker.lastName}} {{this.worker.firstName}}</td>
+        <td>
+          <a href="/workers/{{this.worker.id}}/workdays" class="btn btn-success">See
+            worker's workdays</a>
+        </td>        
+      </tr>
+      {{/each}}
+
+    </tbody>
+
+  </table>
+</div>

@@ -10,15 +10,25 @@ const mongoose = require("mongoose");
 
 module.exports.index = (req, res, next) => {
 
-  Worker.find()
+  const sorter = {number : 1}
+  
+  Worker.findOne({_id:req.currentWorker._id})
+    .then(worker => {  
+      if(worker.isHR){
+        Worker.find().sort(sorter)
+        .then(workers => {
+          res.render("workers/index", {
+            worker: worker,
+            workers: workers
+          })
+        })
 
-
-    .then(worker => {
-
-      res.render("workers/index", {
-        currentWorker: req.currentWorker,
-        worker: worker
-      })
+      }else{
+        res.render("workers/index", {
+          worker: worker
+        })
+      }
+      
 
 
     }).catch(error => {
@@ -28,25 +38,25 @@ module.exports.index = (req, res, next) => {
 
 }
 
-module.exports.hrIndex = (req, res, next) => {
+// module.exports.hrIndex = (req, res, next) => {
 
-  Worker.find()
+//   Worker.find()
 
-    .then(worker => {
+//     .then(worker => {
 
-      res.render("hr/hrIndex", {
-        currentWorker: req.currentWorker,
-        worker: worker
-      })
+//       res.render("hr/hrIndex", {
+//         currentWorker: req.currentWorker,
+//         worker: worker
+//       })
 
-    }).catch(error => {
-      console.log(error)
-    })
-
-
+//     }).catch(error => {
+//       console.log(error)
+//     })
 
 
-}
+
+
+// }
 
 
 module.exports.new = (_, res) => {
@@ -74,7 +84,7 @@ module.exports.create = (req, res, next) => {
   worker.save()
     .then((worker) => {
       // mailer.sendValidateEmail(worker)
-      res.redirect('/workers/login')
+      res.redirect('/')
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -141,12 +151,8 @@ module.exports.doLogin = (req, res, next) => {
             
           req.session.worker = worker
           req.session.genericSuccess = "You are logged logged in. Welcome :)"
-          if(worker.isHR){
-
-            res.redirect("/hr")
-          }else{
+        
             res.redirect("/")
-          }
           
 
         }
@@ -168,14 +174,90 @@ module.exports.doLogin = (req, res, next) => {
   })
 };
 
-
-
-
 module.exports.logout = (req, res) => {
     req.session.destroy()
     res.redirect("/login")
+}
 
+
+module.exports.check = (req, res, next) => {
+  res.render("workers/check");
+};
+
+module.exports.doCheck = (req, res, next) => {
+  const { number, password } = req.body;
+  const numberInt = Number(number)
+  if (!number || !password || req.currentWorker.number !== numberInt) {
+    return res.render("workers/check", { worker: req.body });
+  }
+  Worker.findOne({ number }).then(worker => {
+    if (!worker) {
+      res.render("workers/check", {
+        worker: req.body,
+        error: {
+          password: "Password is not valid"
+        }
+      });
+    } else {
+      return worker.checkPassword(password).then(match => {
+        if (!match) {
+          res.render("workers/check", {
+            worker: req.body,
+            error: {
+              password: "Password is not valid"
+            }
+          });
+        } else{
+          worker.isWorking ? checkout(worker) : checkin(worker)
+          worker.save()         
+          .then(() => {
+            res.redirect("/")
+          })
+          .catch(next)
+        }
+      });
+    }
+  }).catch(error=>{
+    if(error instanceof mongoose.Error.ValidationError){
+      res.render("workers/check", {
+        worker: req.body, 
+        error: error.error
+
+      })
+    }else{
+      next(error)
+    }
+  })
+};
  
 
-}
+const checkin = (worker => {
+  worker.isWorking = true
+  const day = new Date()
+  const workday = new Workday ({
+    day: `${day.getDate()}-${day.getMonth()+1}-${day.getFullYear()}`,
+    startTime: day,
+    worker: worker
+  })
+  workday.save()
+  worker.workday = workday
+  return worker
+})
+
+const checkout = (worker => {
+  worker.isWorking = false
+  const day = new Date()
+  Workday.findOne(worker.workday._id)
+  .then(workday => {
+    workday.endTime = day
+    time = workday.endTime - workday.startTime
+    hours = Math.floor((time / (1000 * 60 * 60))%24)
+    min = Math.floor((time / (1000 * 60))%60)
+    sec = Math.floor((time / 1000)%60)
+    workday.workedHours = `${hours}h ${min}min ${sec}sec`
+    workday.save()
+  }).catch(error => error)
+  return worker  
+})
+
 

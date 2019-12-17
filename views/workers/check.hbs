@@ -1,11 +1,11 @@
-<form action="/login" method="POST" class="mb-3" autocomplete="off">
+<form action="/workers/check" method="POST" class="mb-3" autocomplete="off">
   <div class="form-group">
-    <label for="email">email</label>
-    <input name="email" type="email" class="form-control {{#if error.email }}is-invalid{{/if}}" id="email"
-      placeholder="Enter name" value="{{ worker.email }}">
-    {{#if error.email}}
+    <label for="number">Worker number</label>
+    <input name="number" type="number" class="form-control {{#if error.number }}is-invalid{{/if}}" id="number"
+      placeholder="Enter your worker number" value="{{ worker.number }}">
+    {{#if error.number}}
     <div class="invalid-feedback">
-      {{error.email}}
+      {{error.number}}
     </div>
     {{/if}}
   </div>
@@ -20,10 +20,6 @@
     {{/if}}
   </div>
   <button type="submit" class="btn btn-primary">
-    Log in
+    Check in
   </button>
-{{!-- 
-  <a href="/auth/slack" class="btn btn-warning">
-  <i class="fa fa-slack"></i>Log in with Slack</a> --}}
 </form>
-<a href="/workers/new">Sign up</a>

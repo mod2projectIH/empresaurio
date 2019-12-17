@@ -14,7 +14,7 @@ const File = require("../models/file.model");
         firstName: "Superuser",
         email: "superuser@superuser.com",
         password: "123123123",
-        profilePic: "../public/images/empresaurio.png",
+        profilePic: "/public/images/empresaurio.png",
         workTeam: "Empresaurio",
         role: "Empresaurio",
         isHR: true,

@@ -23,3 +23,20 @@ module.exports.details = (req, res, next) =>{
 
 
 }
+
+module.exports.deployDetails = (req, res, next) =>{
+
+const params = {firstName: req.params.firstName, lastName: req.params.lastName}
+
+
+Worker.findById(req.params.id)
+.then(worker=>{
+
+
+  res.send({params})
+}).catch(error => console.error(error))
+
+
+  
+}
+
