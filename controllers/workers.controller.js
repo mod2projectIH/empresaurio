@@ -10,19 +10,19 @@ const mongoose = require("mongoose");
 
 module.exports.index = (req, res, next) => {
 
-  const sorter = {number : 1}
+  const sorter = {startTime : -1}
   
   Worker.findOne({_id:req.currentWorker._id})
     .then(worker => {  
       if(worker.isHR){
-        Worker.find().sort(sorter)
-        .then(workers => {
+        Workday.find().sort(sorter).limit(10)
+          .populate('worker')
+        .then(workdays => {
           res.render("workers/index", {
-            worker: worker,
-            workers: workers
+            workdays:workdays,
+            worker:worker
           })
         })
-
       }else{
         res.render("workers/index", {
           worker: worker

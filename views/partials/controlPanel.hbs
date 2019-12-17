@@ -15,26 +15,26 @@
   <table class="table table-sm table-hover table-striped mb-5" id="control">
     <thead>
       <tr>
+        <th scope="col">Start Time</th>
         <th scope="col">Number</th>
-        <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Work Team</th>
       </tr>
     </thead>
     <tbody>
-      {{#each workers}}
+      {{#each workdays}}
 
-      <tr id="{{this.number}}">
-        <th scope="row">{{this.number}}</th>
-        <td>{{this.firstName}}</td>
-        <td>{{this.lastName}}</td>
-        <td>{{this.workTeam}}</td>
+      <tr id="{{this.worker.number}}">
+        <th scope="row">{{formatDate this.startTime}}</th>
+        <td>{{this.worker.number}}</td>
+        <td>{{this.worker.lastName}}</td>
+        <td>{{this.worker.workTeam}}</td>
         <td>
-          <a href="/workers/{{this.id}}" class="btn btn-success">See
+          <a href="/workers/{{this.worker.id}}" class="btn btn-success">See
             details</a>
         </td>
         <td>
-          <button class="btn btn-danger details" onclick="deploy({{toString this}})" id={{this.id}}>Deploy
+          <button class="btn btn-danger details" onclick="deploy({{toString this.worker}})" id={{this.worker.id}}>Deploy
             {{!-- <a href="/workers/{{this.id}}/deploy" class="btn btn-danger details">Deploy</a> --}}
           </button>
         </td>
