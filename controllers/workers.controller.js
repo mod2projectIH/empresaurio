@@ -11,21 +11,21 @@ const mongoose = require("mongoose");
 module.exports.index = (req, res, next) => {
 
   const sorter = {number : 1}
-  Worker.find().sort(sorter)
-
-
-    .then(worker => {
-
-      if(req.currentWorker.isHR){
-
-        res.render("workers/index", {
-          currentWorker: req.currentWorker,
-          worker: worker
+  
+  Worker.findOne({_id:req.currentWorker._id})
+    .then(worker => {  
+      if(worker.isHR){
+        Worker.find().sort(sorter)
+        .then(workers => {
+          res.render("workers/index", {
+            worker: worker,
+            workers: workers
+          })
         })
 
       }else{
         res.render("workers/index", {
-          currentWorker: req.currentWorker
+          worker: worker
         })
       }
       

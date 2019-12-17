@@ -2,16 +2,16 @@
   <div class="container-fluid mb-5">
     <div class="d-flex justify-content-center border-primary card w-50 mb-5">
       <div class="d-flex flex-column justify-content-start align-items-center">
-        <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
+        <img src="{{worker.profilePic}}" alt="{{worker.firstName}} {{worker.lastName}} profile pic"
           class="card-img-left w-75 justify-content-center rounded mt-3">
-        <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
+        <h5 class="card-title ">Welcome {{worker.firstName}} {{worker.lastName}}</h5>
       </div>
 
       {{!-- Buttons for breaks --}}
-      {{#if currentWorker.break}}
+      {{#if worker.break}}
       <div class="d-flex flex-column justify-content-end align-items-center">
         <div>
-          <button type="submit" class="btn btn-danger" id="{{currentWorker.id}}">
+          <button type="submit" class="btn btn-danger" id="{{worker.id}}">
             Press here to start your break
           </button>
         </div>
@@ -26,7 +26,7 @@
       </div>
       {{/if}}
       {{!-- A helper has been registered to enable if equals --}}
-      {{#ifEquals currentWorker.currentState "Working"}}
+      {{#ifEquals worker.currentState "Working"}}
       <div class="d-flex flex-column justify-content-end align-items-center">
         <p>You are logged in as <b>Worker</b>
         </p>
@@ -34,15 +34,13 @@
       {{/ifEquals}}
     </div>
       <div>
-        {{#if currentWorker.isWorking }}
+        {{#if worker.isWorking }}
         <a href="/workers/check" class="btn btn-danger w-100">Check Out</a>
         {{else}}
         <a href="/workers/check" class="btn btn-warning w-100">Check In</a>        
         {{/if}}
       </div>
-
-
-    {{#if currentWorker.isHR}}
+    {{#if worker.isHR}}
     <div>
       {{> controlPanel}}
     </div>
