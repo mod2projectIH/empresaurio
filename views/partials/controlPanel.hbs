@@ -1,17 +1,5 @@
 <div class="container-fluid">
-  {{!-- <div class="card">
-    <div class="card-header">
-      <h5><b>
-          {{worker.firstName}} {{worker.lastName}} worked hours today
-        </b>
-      </h5>
-    </div>
-    <div class="card-body">
-      <h5>Hola</h5>
-
-    </div>
-
-  </div> --}}
+  <div id="edit"></div>
   <table class="table table-sm table-hover table-striped mb-5" id="control">
     <thead>
       <tr>
@@ -24,7 +12,7 @@
     <tbody>
       {{#each workdays}}
 
-      <tr id="{{this.worker.number}}">
+      <tr id="{{this.worker.id}}">
         <th scope="row">{{formatDate this.startTime}}</th>
         <td>{{this.worker.number}}</td>
         <td>{{this.worker.lastName}}</td>
@@ -34,10 +22,16 @@
             details</a>
         </td>
         <td>
-          <button class="btn btn-danger details" onclick="deploy({{toString this.worker}})" id={{this.worker.id}}>Deploy
-            {{!-- <a href="/workers/{{this.id}}/deploy" class="btn btn-danger details">Deploy</a> --}}
+          <button class="btn btn-danger details" onclick="editDelete({{toString this.worker}})">Edit/delete
+            
           </button>
         </td>
+        <td>
+          <button class="btn btn-warning details" onclick="checkWorkerProgress({{toString this.worker}})" id={{this.worker.id}}>Check worker progress
+            
+          </button>
+        </td>
+
 
 
       </tr>

@@ -28,8 +28,9 @@ router.get('/workers/:id/upload', authMiddleware.isAuthenticated,  fileControlle
 router.post('/workers/:id/upload', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFile)
 
 
+router.post('/workers/delete/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deleteWorker)
+router.get('/workers/:id/uploadFiles', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)
 
-// router.get('/workers/:id/deploy', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)
 
 //Files
 

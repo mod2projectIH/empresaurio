@@ -4,16 +4,16 @@
 
     <div class="d-flex justify-content-center card w-50 mb-5 float-left">
       <div class="d-flex flex-column justify-content-start align-items-center">
-        <img src="{{worker.profilePic}}" alt="{{worker.firstName}} {{worker.lastName}} profile pic"
+        <img src="{{currentWorker.profilePic}}" alt="{{currentWorker.firstName}} {{currentWorker.lastName}} profile pic"
           class="card-img-left w-75 justify-content-center rounded mt-3">
-        <h5 class="card-title ">Welcome {{worker.firstName}} {{worker.lastName}}</h5>
+        <h5 class="card-title ">Welcome {{currentWorker.firstName}} {{currentWorker.lastName}}</h5>
       </div>
 
       {{!-- Buttons for breaks --}}
-      {{#if worker.break}}
+      {{#if currentWorker.break}}
       <div class="d-flex flex-column justify-content-end align-items-center">
         <div>
-          <button type="submit" class="btn btn-danger" id="{{worker.id}}">
+          <button type="submit" class="btn btn-danger" id="{{currentWorker.id}}">
             Press here to start your break
           </button>
         </div>
@@ -28,9 +28,9 @@
       </div>
       {{/if}}
       {{!-- A helper has been registered to enable if equals --}}
-      {{#ifEquals worker.currentState "Working"}}
+      {{#ifEquals currentWorker.currentState "Working"}}
       <div class="d-flex flex-column justify-content-end align-items-center">
-        <p>You are logged in as <b>{{currentWorker.lastName}}</b>
+        <p>You are logged in as <b>Worker</b>
         </p>
       </div>
       {{/ifEquals}}
@@ -45,20 +45,11 @@
   </div>
   {{#if currentWorker.isHR}}
   <div>
-    {{#if worker.isWorking }}
-    <a href="/workers/check" class="btn btn-danger w-100">Check Out</a>
-    {{else}}
-    <a href="/workers/check" class="btn btn-warning w-100">Check In</a>
-    {{/if}}
-  </div>
-  {{#if worker.isHR}}
-  <div>
     {{> controlPanel}}
   </div>
   <div><a href="/workers/new" class="btn btn-success">Create a new user</a></div>
   {{/if}}
-
-  <div class="d-flex flex-column justify-content-end align-items-center mt-5">
-    <a href="/logout" class="btn btn-danger">Logout</a>
-  </div>
+</div>
+<div class="d-flex flex-column justify-content-end align-items-center mt-5">
+  <a href="/logout" class="btn btn-danger">Logout</a>
 </div>

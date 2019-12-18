@@ -108,7 +108,7 @@ module.exports.create = (req, res, next) => {
           ContractsList,
           RolesList,
           StatesList,
-          genericError: 'Worker exists'
+          genericError: 'Worker already exists'
         })
       } else {
         next(error);

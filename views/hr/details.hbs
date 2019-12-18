@@ -13,9 +13,9 @@
                         <div class="col-md-6">
                             <h6>Team</h6>
                             <p>
-                                {{worker.workTeam}} </p>
+                                {{currentWorker.workTeam}} </p>
                             <h6>Email</h6>
-                            <p><a href="{{worker.email}}">{{worker.email}}</a>
+                            <p><a href="{{currentWorker.email}}">{{currentWorker.email}}</a>
                             </p>
                         </div>
                     </div>
@@ -23,10 +23,10 @@
             </div>
         </div>
         <div class="col-lg-4 order-lg-1 text-center" id="upload">
-            <img src="https://www.formulatv.com/images/noticias/57900/57976/9_5694c31dfa.jpg"
+            <img src="{{currentWorker.profilePic}}"
                 class="mx-auto img-fluid img-circle d-block" alt="avatar">
             
-                          <a href="/workers/{{worker.id}}/upload" class="btn btn-warning">Upload file</a>
+                          <button  class="btn btn-warning" onclick="uploadFiles({{toString currentWorker}})">Upload file</button>
         </div>
     </div>
     <div class="col-md-12">
