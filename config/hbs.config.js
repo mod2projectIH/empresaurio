@@ -19,3 +19,8 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
 hbs.registerHelper('toString', function(context) {
   return JSON.stringify(context);
 });
+
+//Format date
+hbs.registerHelper('formatDate', function(date){
+  return `${date.getDate()}-${date.getMonth()+1} > ${date.getHours()}:${date.getMinutes()<10?'0':'' + date.getMinutes()}`
+})
