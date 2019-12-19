@@ -91,8 +91,12 @@ module.exports.create = (req, res, next) => {
     contract: req.body.contract,
     isHR: req.body.isHR
   })
+  console.log(worker)
   worker.save()
+  
     .then((worker) => {
+      console.log(worker)
+      
       // mailer.sendValidateEmail(worker)
       res.redirect('/')
     })
@@ -114,7 +118,7 @@ module.exports.create = (req, res, next) => {
           ContractsList,
           RolesList,
           StatesList,
-          genericError: 'Worker exists'
+          genericError: 'Worker already exists'
         })
       } else {
         next(error);
@@ -273,7 +277,6 @@ const checkout = (worker => {
   }else{
     worker.workday.break = true
     worker.workday.dailyBreakTime.start = new Date()
-    console.log(typeof(worker.workday.dailyBreakTime.start - worker.workday.startTime))
     worker.workday.workedHours = worker.workday.dailyBreakTime.start - worker.workday.startTime
   }
   worker.workday.save()

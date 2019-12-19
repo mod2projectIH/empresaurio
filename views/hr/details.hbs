@@ -1,8 +1,4 @@
 <div class="container-fluid">
-    <form action="/workers" method="POST">
-        <a href="/workers/:id/edit">edit</a>
-        <a href="/workers/:id/delete">delete</a>
-    </form>
     <div class="d-flex flex-column justify-content-start align-items-top w-25 mb-5">
         <a href="/" class="btn btn-success">Back</a>
     </div>
@@ -12,27 +8,25 @@
             </ul>
             <div class="tab-content py-4">
                 <div class="active" id="profile">
+                    <img src="{{currentWorker.profilePic}}"
+                class="mx-auto img-fluid img-circle d-block" alt="avatar">
                     <h5 class="mb-3">Worker Profile</h5>
                     <div class="row">
                         <div class="col-md-6">
                             <h6>Team</h6>
                             <p>
-                                {{worker.workTeam}} </p>
+                                {{currentWorker.workTeam}} </p>
                             <h6>Email</h6>
-                            <p><a href="{{worker.email}}">{{worker.email}}</a>
+                            <p><a href="{{currentWorker.email}}">{{currentWorker.email}}</a>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 order-lg-1 text-center">
-            <img src="https://www.formulatv.com/images/noticias/57900/57976/9_5694c31dfa.jpg"
-                class="mx-auto img-fluid img-circle d-block" alt="avatar">
-            <label class="custom-file">
-                <input type="file" id="file" class="custom-file-input">
-                <a href="/workers/{{worker.id}}/upload" class="btn btn-info">Upload file</a>
-            </label>
+        <div class="col-lg-4 order-lg-1 text-center" id="upload">
+            
+              {{> uploadfiles}}
         </div>
     </div>
     <div class="col-md-12">

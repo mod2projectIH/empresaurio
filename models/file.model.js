@@ -7,6 +7,10 @@ const fileSchema = new mongoose.Schema({
     enum: ['Drop','Holidays','Parenthood'],
     required: true
   },
+  description: {
+    type: String, 
+    required: true
+  }, 
   worker: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Worker',
@@ -18,6 +22,6 @@ const fileSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
-const File = mongoose.model('File', fileSchema);
+const File = mongoose.model('Files', fileSchema);
 
 module.exports = File;

@@ -11,7 +11,7 @@ module.exports = router;
 
 router.get("/", authMiddleware.isAuthenticated, workerController.index);
 router.get('/workers/new',authMiddleware.isHR, workerController.new)
-router.post('/workers/new',authMiddleware.isHR,upload.single('profilePic'), workerController.create)
+router.post('/workers/new',authMiddleware.isHR, upload.single('profilePic'), workerController.create)
 
 
 router.get("/login", authMiddleware.isNotAuthenticated, workerController.login);
@@ -24,9 +24,13 @@ router.get("/workdays", authMiddleware.isAuthenticated, workdaysController.index
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
 router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
 
-router.get('/workers/:id/upload', authMiddleware.isAuthenticated, authMiddleware.isHR, fileController.uploadFile)
-router.post('/workers/:id/upload', authMiddleware.isAuthenticated, authMiddleware.isHR, upload.single('file'), fileController.doUploadFile)
+router.get('/workers/:id/upload', authMiddleware.isAuthenticated,  fileController.uploadFile)
+router.post('/workers/:id/upload', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFile)
 
 
+router.post('/workers/delete/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deleteWorker)
+router.get('/workers/:id/uploadFiles', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)
 
-router.get('/workers/:id/deploy', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)
+
+//Files
+
