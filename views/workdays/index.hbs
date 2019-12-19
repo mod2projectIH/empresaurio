@@ -13,18 +13,26 @@
     <tbody>
       {{#each workdays}}
       <tr id="{{this.day}}">
-        <th scope="row">{{this.day}}</th>
-        <td>{{this.startTime}}</td>
+        <th scope="row">{{formatDate this.day}}</th>
+        <td>{{formatHour this.startTime}}</td>
         {{#if this.endTime}}
-          <td>{{this.endTime}}</td>
-          <td>{{this.workedHours}}</td>
+            <td>{{formatHour this.endTime}}</td>
+            <td>{{formatNumber this.workedHours}}</td>
         {{else}}
-          <td colspan="2">Working</td>
+          {{#if this.break}}
+            <td>{{formatHour this.dailyBreakTime.start}}</td>
+            <td>{{formatNumber this.workedHours}}</td>
+          {{else}}
+              <td colspan="2">Working</td>          
+          {{/if}}
         {{/if}}
         <td>{{this.worker.lastName}} {{this.worker.firstName}}</td>
         <td>
           <a href="/workers/{{this.worker.id}}/workdays" class="btn btn-success">See
             worker's workdays</a>
+          {{#if this.break}}
+            <p>break</p>
+          {{/if}}
         </td>        
       </tr>
       {{/each}}

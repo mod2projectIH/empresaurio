@@ -10,7 +10,7 @@ const workdaySchema = new mongoose.Schema(
       // required: true
     },
     day: {
-      type: String,
+      type: Date,
       required: true
     },
     startTime: {
@@ -22,21 +22,18 @@ const workdaySchema = new mongoose.Schema(
     },
 
     workedHours: {
-      type: String,
-      default: "0"
+      type: Date
     },
     break: {
       type: Boolean,
       deafault: false
     },
     dailyBreakTime: {
-      type: {
-        start: {
-          type: Date
-        },
-        finish: {
-          type: Date
-        }
+      start: {
+        type: Date
+      },
+      finish: {
+        type: Date
       }
     },
     worker: {

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <table class="table table-sm table-hover table-striped mb-5" id="control">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">is Working?</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Work Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each workers}}
+
+      <tr id="{{this.name}}">
+        <th scope="row">{{this.name}}</th>
+        {{#if this.worday.break}}
+          <td>Break</td>
+        {{else}}
+          <td>{{this.isWorking}}</td>
+        {{/if}}
+        <td>{{this.lastName}}</td>
+        <td>{{this.firstName}}</td>
+        <td>
+          <a href="/workers/{{this.id}}" class="btn btn-success">See
+            details</a>
+        </td>
+        <td>
+          <button class="btn btn-danger details" onclick="deploy({{toString this}})" id={{this.id}}>Deploy
+          </button>
+        </td>
+
+
+      </tr>
+
+
+      {{/each}}
+
+    </tbody>
+
+  </table>
+</div>

@@ -13,7 +13,17 @@ module.exports.index = (req, res, next) => {
   const sorter = {startTime : -1}
   
   Worker.findOne({_id:req.currentWorker._id})
-    .then(worker => {  
+    .then(worker => { 
+      if (worker.role === "Team leader"){
+        Worker.find({workTeam:req.currentWorker.workTeam})
+          .populate(workday)
+        .then(workers => {
+          res.render("workers/index",{
+            workers:workers,
+            worker:worker
+          })
+        })
+      }
       if(worker.isHR){
         Workday.find().sort(sorter).limit(10)
           .populate('worker')
@@ -190,7 +200,9 @@ module.exports.doCheck = (req, res, next) => {
   if (!number || !password || req.currentWorker.number !== numberInt) {
     return res.render("workers/check", { worker: req.body });
   }
-  Worker.findOne({ number }).then(worker => {
+  Worker.findOne({ number })
+    .populate('workday')
+  .then(worker => {
     if (!worker) {
       res.render("workers/check", {
         worker: req.body,
@@ -208,7 +220,7 @@ module.exports.doCheck = (req, res, next) => {
             }
           });
         } else{
-          worker.isWorking ? checkout(worker) : checkin(worker)
+          worker.workday && worker.isWorking && !worker.workday.break ? checkout(worker) : checkin(worker)
           worker.save()         
           .then(() => {
             res.redirect("/")
@@ -231,33 +243,45 @@ module.exports.doCheck = (req, res, next) => {
 };
  
 
-const checkin = (worker => {
-  worker.isWorking = true
-  const day = new Date()
-  const workday = new Workday ({
-    day: `${day.getDate()}-${day.getMonth()+1}-${day.getFullYear()}`,
-    startTime: day,
-    worker: worker
-  })
-  workday.save()
-  worker.workday = workday
+const checkin = (worker => {  
+  date = new Date()
+  if (!worker.workday || worker.workday.endTime || formDate(date) !== formDate(worker.workday.day)){
+    worker.isWorking = true
+    const workday = new Workday ({
+      day: date,
+      startTime: date,
+      worker: worker
+    })
+    workday.save()
+    worker.workday = workday
+  } else {
+    worker.workday.break = false
+    worker.workday.dailyBreakTime.finish = date
+  }
+  worker.workday.save()   
   return worker
 })
 
-const checkout = (worker => {
-  worker.isWorking = false
-  const day = new Date()
-  Workday.findOne(worker.workday._id)
-  .then(workday => {
-    workday.endTime = day
-    time = workday.endTime - workday.startTime
-    hours = Math.floor((time / (1000 * 60 * 60))%24)
-    min = Math.floor((time / (1000 * 60))%60)
-    sec = Math.floor((time / 1000)%60)
-    workday.workedHours = `${hours}h ${min}min ${sec}sec`
-    workday.save()
-  }).catch(error => error)
+const checkout = (worker => { 
+  if (!worker.workday){
+    return worker.isWorking = false
+  } 
+  if (worker.workday.dailyBreakTime.finish){
+    worker.isWorking = false
+    worker.workday.endTime = new Date()
+    worker.workday.workedHours += worker.workday.endTime - worker.workday.dailyBreakTime.finish
+  }else{
+    worker.workday.break = true
+    worker.workday.dailyBreakTime.start = new Date()
+    console.log(typeof(worker.workday.dailyBreakTime.start - worker.workday.startTime))
+    worker.workday.workedHours = worker.workday.dailyBreakTime.start - worker.workday.startTime
+  }
+  worker.workday.save()
   return worker  
+})
+
+const formDate = (date => {
+  return `${date.getDate()}${date.getMonth()+1}${date.getFullYear()}`
 })
 
 

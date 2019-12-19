@@ -34,9 +34,6 @@ Worker.findById(req.params.id)
 
 
   res.send({params})
-}).catch(error => console.error(error))
-
-
-  
+}).catch(error => console.error(error))  
 }
 
