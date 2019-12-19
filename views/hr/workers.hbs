@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div id="edit"></div>
+  <table class="table table-sm table-hover table-striped mb-5" id="control">
+    <thead>
+      <tr>
+        <th scope="col">Number</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Work Team</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <div id="progress-bar"></div>
+    <tbody>
+      {{#each workers}}
+
+      <tr id="{{this.id}}">
+        <th scope="row">{{this.number}}</th>
+        <td>{{this.lastName}}</td>
+        <td>{{this.firstName}}</td>
+        <td>{{this.workTeam}}</td>
+        <td>{{this.role}}</td>
+        <td>
+          <a href="/workers/{{this.id}}" class="btn btn-success">See
+            details</a>
+        </td>
+        <td>
+          <button class="btn btn-danger details" onclick="editDelete({{toString this}})">Edit/delete
+
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-warning details" onclick="checkWorkerProgress({{toString this.worker}})"
+            id={{this.id}}>Check worker progress
+
+          </button>
+        </td>
+
+
+
+      </tr>
+
+
+      {{/each}}
+
+    </tbody>
+
+  </table>
+</div>

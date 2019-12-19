@@ -1,19 +1,23 @@
 const Worker = require("../models/worker.model");
 const File = require("../models/file.model");
+const Workday = require("../models/workday.model")
 
 const mongoose = require("mongoose");
+module.exports.workersIndex = (req, res, next) => {
+  Worker.find().sort({number : 1})
+  .then(workers => {    
+      res.render("hr/workers", { workers });
 
+    }).catch(next)
+}
 module.exports.details = (req, res, next) => {
 	const id = req.params.id;
 
 	File.find({worker: id})
     .populate("worker")
 
-		.then(files => {
-			files.forEach(files=> console.log(files.worker._id))
-			
+		.then(files => {			
 				res.render("hr/details", { files, worker: files.worker });
-
 			}).catch(next)
 		
 };
@@ -44,7 +48,6 @@ module.exports.uploadFiles = (req, res, next) => {
 
 
 module.exports.deleteWorker = (req, res, next) => {
-console.log("ENTRAAAAAAAAAAAAAAAAAAAAAA")
 
 	
 
@@ -57,7 +60,15 @@ console.log("ENTRAAAAAAAAAAAAAAAAAAAAAA")
 			res.redirect("/")
 		}).catch(error=>{
 			next(console.log(error))
-		})
+    })
+    Workday.deleteMany({worker:id})
+      .then(workdays =>{
+        console.log(`This worker has been removed => ${worker.firstName} ${worker.lastName} `)
+			  res.redirect("/")
+      }).catch(error=>{
+			next(console.log(error))
+    })
+    
 		
 		
 		

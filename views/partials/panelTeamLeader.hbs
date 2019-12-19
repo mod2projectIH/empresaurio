@@ -10,14 +10,14 @@
     </thead>
     <tbody>
       {{#each workers}}
-
-      <tr id="{{this.name}}">
+      <tr id="{{this.id}}">
         <th scope="row">{{this.name}}</th>
-        {{#if this.worday.break}}
-          <td>Break</td>
+        {{#if this.workday.break}}
+            <td>Break</td>
         {{else}}
           <td>{{this.isWorking}}</td>
         {{/if}}
+
         <td>{{this.lastName}}</td>
         <td>{{this.firstName}}</td>
         <td>

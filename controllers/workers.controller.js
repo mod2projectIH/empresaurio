@@ -16,8 +16,9 @@ module.exports.index = (req, res, next) => {
     .then(worker => { 
       if (worker.role === "Team leader"){
         Worker.find({workTeam:req.currentWorker.workTeam})
-          .populate(workday)
+          .populate('workday')
         .then(workers => {
+          console.log(workers)
           res.render("workers/index",{
             workers:workers,
             worker:worker
