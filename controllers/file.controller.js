@@ -11,24 +11,37 @@ const mongoose = require("mongoose");
 module.exports.uploadFile = (req, res, next) => {
 	const id = req.params.id;
 	Worker.findOne({ _id: id })
+	.populate('file')
+	
 		.then(worker => {
+			console.log(worker)
 			res.render("files/upload", {
 				worker,
+				
 			});
 		})
 		.catch(next);
 };
 
 module.exports.doUploadFile = (req, res, next) => {
+	console.log(req.currentWorker._id + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 	const file = new File({
 		type: req.body.type,
-		file: req.file,
+		description: req.body.type, 
+		worker: req.currentWorker._id,
+		file: req.file ? `/uploads/${req.file.filename}` : undefined
+		
 	});
+	console.log(file)
 	file
 		.save()
 		.then(file => {
-			console.log(`${file.name} has been created`);
-			res.redirect("workers/details");
+			Worker.findByIdAndUpdate(req.currentWorker._id, {$set: {file: file.id}}, {new: true}, function(error, updatedDocument){
+				console.log(updatedDocument)
+				file.save()
+			})
+			console.log(`${file.description} has been created`);
+			res.redirect("/");
 		})
 		.catch(error => console.log(error));
 };

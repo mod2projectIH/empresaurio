@@ -10,19 +10,28 @@ const mongoose = require("mongoose");
 
 module.exports.index = (req, res, next) => {
 
-  const sorter = {number : 1}
+  const sorter = {startTime : -1}
+
   
   Worker.findOne({_id:req.currentWorker._id})
     .then(worker => {  
       if(worker.isHR){
+
+        Workday.find().sort(sorter).limit(10)
+          .populate('worker')
+        .then(workdays => {
+          res.render("workers/index", {
+            workdays:workdays,
+            worker:worker
+
         Worker.find().sort(sorter)
         .then(workers => {
           res.render("workers/index", {
             worker: worker,
             workers: workers
+
           })
         })
-
       }else{
         res.render("workers/index", {
           worker: worker
@@ -81,8 +90,12 @@ module.exports.create = (req, res, next) => {
     contract: req.body.contract,
     isHR: req.body.isHR
   })
+  console.log(worker)
   worker.save()
+  
     .then((worker) => {
+      console.log(worker)
+      
       // mailer.sendValidateEmail(worker)
       res.redirect('/')
     })
@@ -104,7 +117,7 @@ module.exports.create = (req, res, next) => {
           ContractsList,
           RolesList,
           StatesList,
-          genericError: 'Worker exists'
+          genericError: 'Worker already exists'
         })
       } else {
         next(error);
@@ -259,5 +272,3 @@ const checkout = (worker => {
   }).catch(error => error)
   return worker  
 })
-
-
