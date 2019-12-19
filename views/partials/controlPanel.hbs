@@ -11,16 +11,13 @@
     </thead>
     <div id="progress-bar"></div>
     <tbody>
-      
       {{#each workdays}}
-     
+
       <tr id="{{this.worker.id}}">
         <th scope="row">{{formatDate this.startTime}}</th>
         <td>{{this.worker.number}}</td>
-
         <td>{{this.worker.lastName}}</td>
         <td>{{this.worker.workTeam}}</td>
-
         <td>
           <a href="/workers/{{this.worker.id}}" class="btn btn-success">See
             details</a>

@@ -21,6 +21,17 @@ hbs.registerHelper('toString', function(context) {
 });
 
 //Format date
+hbs.registerHelper('formatHour', function(date){
+  return `${date.getHours()}:${date.getMinutes() < 10 ? '0'+ date.getMinutes(): '' + date.getMinutes()}:${date.getSeconds() < 10 ? '0'+ date.getSeconds(): '' + date.getSeconds()}`
+})
+
 hbs.registerHelper('formatDate', function(date){
-  return `${date.getDate()}-${date.getMonth()+1} > ${date.getHours()}:${date.getMinutes()<10?'0':'' + date.getMinutes()}`
+  return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+})
+
+hbs.registerHelper('formatNumber', function(number){
+  hours = Math.floor((number / (1000 * 60 * 60))%24)
+    min = Math.floor((number / (1000 * 60))%60)
+    sec = Math.floor((number / 1000)%60)
+  return `${hours}h ${min}min ${sec}sec`
 })
