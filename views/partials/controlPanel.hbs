@@ -2,7 +2,7 @@
   <div id="edit"></div>
 
   {{#each workdays}}
-  <div class="d-flex flex-row w-100 card">
+  <div class="d-flex flex-row w-100 card mb-1">
     <table class="table table-sm table-hover table-striped" id="control">
       <thead>
         <tr>
@@ -38,19 +38,13 @@
             </button>
           </td>
 
-
-
-        </tr>
-        <tr>
-          <td colspan="12">{{> progressBar}}</td>
-        </tr>
-
-
       </tbody>
+    
+
 
     </table>
   </div>
-
+{{>progressBar}}
   {{/each}}
 
 
