@@ -16,11 +16,15 @@ module.exports.workersIndex = (req, res, next) => {
 module.exports.details = (req, res, next) => {
 	const id = req.params.id;
 
-	File.find({worker: id})
+	Worker.findById(id)
     .populate("worker")
 
-		.then(files => {			
-				res.render("hr/details", { files, worker: files.worker });
+		.then(worker => {	
+			File.find({worker: worker.id})
+			.then(files=>{
+				res.render("hr/details", { files, worker});
+			})
+				
 			}).catch(next)
 		
 };
