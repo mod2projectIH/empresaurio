@@ -45,8 +45,6 @@ const formatDate = date => {
 const formatHour = date => {
 	return `${date.getHours()}:${
 		date.getMinutes() < 10 ? "0" + date.getMinutes() : "" + date.getMinutes()
-	}:${
-		date.getSeconds() < 10 ? "0" + date.getSeconds() : "" + date.getSeconds()
 	}`;
 };
 
@@ -57,13 +55,48 @@ const formatNumber = number => {
 	return `${hours}h ${min}min ${sec}sec`;
 };
 
-// //Format date
-// hbs.registerHelper("formatHour", function(date) {
-// 	return `${date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : "" + date.getMinutes()}:${date.getSeconds() < 10 ? "0" + date.getSeconds() : "" + date.getSeconds()}`;
-// });
+const getProgressBarMinutes = date => {
+	console.log(date);
+	const totalMin = 480
+	let now = Date.now();
+	const nowDate = new Date(now);
+	const startDate = new Date("December 20, 2019 11:00:32");
 
-// hbs.registerHelper("formatDate", function(date) {
-// 	r;
-// });
+	const hourDiff = nowDate - startDate;
+	const diffHrs = Math.round((hourDiff % 86400000) / 3600000);
+	let diffMins = Math.round(((hourDiff % 86400000) % 3600000) / 60000);
+	diffMins = diffMins + diffHrs * 60;
 
-// hbs.registerHelper("formatNumber", function(number) {});
+	const calculatePercentage = (diffMins * 100) / totalMin;
+	console.log(calculatePercentage);
+	return calculatePercentage;
+};
+
+// const drawProgressBar = (date, worker) =>{
+
+// 	const userDiv = document.getElementById(worker.id)
+// 	userDiv.innerHTML = `
+	
+	
+// 	<div class="container mb-2 d-flex flex-row justify-content-between">
+
+//   <div class="">
+//     <h5>Start time => {{formatHour this.startTime}} </h5>
+//   </div>
+//   <div class="">
+//     <h5>End time => {{addHours this.startTime}}</h5>
+//   </div>
+
+//   </div>
+// <div class="progress mb-2 flex-row">
+
+//   <div class="progress-bar progress-bar-success progress-bar-striped " role="progressbar" style="width: {{substractMinutes this.startTime}}" aria-valuenow="{{substractMinutes this.startTime}}" aria-valuemin="0"
+//     aria-valuemax="100"></div>
+// </div>
+// 	`
+
+
+
+// }
+
+

@@ -17,7 +17,7 @@
       <tbody>
 
 
-        <tr id="{{this.worker.id}}">
+        <tr id="row{{this.worker.id}}">
           <th scope="row">{{formatDate this.startTime}}</th>
           <td>{{this.worker.number}}</td>
           <td>{{this.worker.lastName}}</td>
@@ -32,19 +32,19 @@
             </button>
           </td>
           <td>
-            <button class="btn btn-warning details" onclick="checkWorkerProgress({{formatHour this.startTime}})"
-              id={{this.worker.id}}>Check worker progress
-
-            </button>
+            <button class="btn btn-warning details" 
+              id="bar{{this.worker.id}}"></button>
           </td>
 
       </tbody>
-    
+
 
 
     </table>
   </div>
-{{>progressBar}}
+<div id="{{this.worker.id}}">
+  {{>progressBar}}
+  </div>
   {{/each}}
 
 
