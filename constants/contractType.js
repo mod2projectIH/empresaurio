@@ -1,0 +1,1 @@
+module.exports = ["Undefined", "Temporary", "Internship"]

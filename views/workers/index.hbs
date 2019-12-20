@@ -4,33 +4,14 @@
 
     <div class="d-flex justify-content-center card w-50 mb-5 float-left">
       <div class="d-flex flex-column justify-content-start align-items-center">
-        <img src="{{worker.profilePic}}" alt="{{worker.firstName}} {{worker.lastName}} profile pic"
+        <img src="{{worker.profilePic}}" 
           class="card-img-left w-75 justify-content-center rounded mt-3">
         <h5 class="card-title ">Welcome {{worker.firstName}} {{worker.lastName}}</h5>
       </div>
-
-      {{!-- Buttons for breaks --}}
-      {{#if worker.break}}
-      <div class="d-flex flex-column justify-content-end align-items-center">
-        <div>
-          <button type="submit" class="btn btn-danger" id="{{worker.id}}">
-            Press here to start your break
-          </button>
-        </div>
-      </div>
-      {{else}}
-      <div class="d-flex flex-column justify-content-end align-items-center">
-        <div class="mb-5">
-          <button type="submit" class="btn btn-danger">
-            Don't work
-          </button>
-        </div>
-      </div>
-      {{/if}}
       {{!-- A helper has been registered to enable if equals --}}
       {{#ifEquals worker.currentState "Working"}}
       <div class="d-flex flex-column justify-content-end align-items-center">
-        <p>You are logged in as <b>Worker</b>
+        <p>You are logged in as <b>{{worker.role}}</b>
         </p>
       </div>
       {{/ifEquals}}
@@ -47,8 +28,12 @@
       {{else}}
       <a href="/workers/check" class="btn btn-warning w-100">Check In</a>        
       {{/if}}
+      {{#if worker.isHR}}
+      <a href="/workers" class="btn btn-info w-100">Full list of workers</a>     
+      {{/if}}  
     </div>
-    {{#ifEquals worker.role "Team Leader"}}
+    <div class="d-flex justify-content-center card w-100 mb-5">
+    {{#ifEquals worker.role "Team leader"}}
     <div>
       {{> panelTeamLeader}}
     </div>
@@ -56,6 +41,7 @@
     {{#if worker.isHR}}
     <div>
       {{> controlPanel}}
+    </div>
     </div>
     <div><a href="/workers/new" class="btn btn-success">Create a new user</a></div>
     {{/if}}  

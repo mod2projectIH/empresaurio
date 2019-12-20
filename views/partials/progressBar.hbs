@@ -1,0 +1,14 @@
+<div class="container mb-2 d-flex flex-row justify-content-between">
+
+  <div class="">
+    <h5>Start time => {{formatHour this.startTime}} </h5>
+  </div>
+  <div class="">
+    <h5>End time => {{addHours this.startTime}}</h5>
+  </div>
+
+  </div>
+<div class="progress mb-2 flex-row">
+  <div class="progress-bar progress-bar-success progress-bar-striped " role="progressbar" style="width: {{substractMinutes this.startTime}}%" aria-valuenow="{{substractMinutes this.startTime}}" aria-valuemin="0"
+    aria-valuemax="100"></div>
+</div>

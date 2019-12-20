@@ -20,13 +20,17 @@ router.post("/login", authMiddleware.isNotAuthenticated, workerController.doLogi
 router.get("/workers/check", authMiddleware.isAuthenticated, workerController.check);
 router.post("/workers/check", authMiddleware.isAuthenticated, workerController.doCheck)
 router.get("/workdays", authMiddleware.isAuthenticated, workdaysController.index)
+router.get("/workers", authMiddleware.isHR, hrController.workersIndex)
 
 router.get("/logout", authMiddleware.isAuthenticated, workerController.logout);
 router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.details)
 
 router.get('/workers/:id/upload', authMiddleware.isAuthenticated,  fileController.uploadFile)
 router.post('/workers/:id/upload', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFile)
+router.post('/workers/:id/uploadDetails', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFileDetails)
 
+router.get('/workers/:id/edit', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.edit)
+router.post('/workers/:id/edit', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.doEdit)
 
 router.post('/workers/delete/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deleteWorker)
 router.get('/workers/:id/uploadFiles', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.deployDetails)

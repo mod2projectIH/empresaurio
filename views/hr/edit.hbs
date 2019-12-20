@@ -7,7 +7,7 @@
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input name="firstName" type="text" class="form-control {{#if error.firstName }}is-invalid{{/if}}" id="firstName"
-      placeholder="Enter name" value="{{ worker.name }}">
+      placeholder="Enter name" value="{{ worker.firstName }}">
     {{#if error.firstName}}
     <div class="invalid-feedback">
       {{error.firstName.message}}
@@ -15,7 +15,7 @@
     {{/if}}
     <label for="lastName">Last Name</label>
     <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
-      placeholder="Enter name" value="{{ worker.name }}">
+      placeholder="Enter name" value="{{ worker.lastName }}">
     
     {{#if error.lastName}}
     <div class="invalid-feedback">
@@ -56,7 +56,7 @@
   <div class="form-group">
     <label for="password">Password</label>
     <input name="password" type="password" class="form-control {{#if error.password }}is-invalid{{/if}}" id="password"
-      placeholder="password" value="{{ worker.password }}">
+      placeholder="password" value="">
     {{#if error.password}}
     <div class="invalid-feedback">
       {{error.password.message}}
@@ -66,7 +66,7 @@
   <div class="form-group">
     <label for="workTeam">Work Team</label>
     <input name="workTeam" type="text" class="form-control {{#if error.workTeam }}is-invalid{{/if}}" id="workTeam"
-      placeholder="Enter name" value="{{ worker.name }}">
+      placeholder="Enter name" value="{{ worker.workTeam }}">
       
     {{#if error.workTeam}}
     <div class="invalid-feedback">
@@ -119,3 +119,4 @@
   </button>
 </form>
 </div>
+

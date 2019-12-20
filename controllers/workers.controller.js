@@ -16,15 +16,14 @@ module.exports.index = (req, res, next) => {
     .then(worker => { 
       if (worker.role === "Team leader"){
         Worker.find({workTeam:req.currentWorker.workTeam})
-          .populate(workday)
+          .populate('workday')
         .then(workers => {
           res.render("workers/index",{
             workers:workers,
-            worker:worker
+            worker:worker,
           })
         })
-      }
-      if(worker.isHR){
+      }else if(worker.isHR){
         Workday.find().sort(sorter).limit(10)
           .populate('worker')
         .then(workdays => {
@@ -47,27 +46,6 @@ module.exports.index = (req, res, next) => {
 
 
 }
-
-// module.exports.hrIndex = (req, res, next) => {
-
-//   Worker.find()
-
-//     .then(worker => {
-
-//       res.render("hr/hrIndex", {
-//         currentWorker: req.currentWorker,
-//         worker: worker
-//       })
-
-//     }).catch(error => {
-//       console.log(error)
-//     })
-
-
-
-
-// }
-
 
 module.exports.new = (_, res) => {
   res.render('workers/new', {
