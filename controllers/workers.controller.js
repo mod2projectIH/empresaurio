@@ -256,6 +256,7 @@ const checkout = (worker => {
     worker.workday.break = true
     worker.workday.dailyBreakTime.start = new Date()
     worker.workday.workedHours = worker.workday.dailyBreakTime.start - worker.workday.startTime
+    console.log(typeof(worker.workday.workedHours))
   }
   worker.workday.save()
   return worker  

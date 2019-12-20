@@ -17,11 +17,16 @@ module.exports.details = (req, res, next) => {
 	const id = req.params.id;
 
 	File.find({worker: id})
-    .populate("worker")
+		.populate("worker")
 
-		.then(files => {			
-				res.render("hr/details", { files, worker: files.worker });
+		.then(files => {		
+			Workday.find({worker:id})
+			.populate("worker")
+			.then(workdays=>{
+				res.render("hr/details", { workdays, files, worker: workdays.worker });
 			}).catch(next)
+				
+		}).catch(next)
 		
 };
 
