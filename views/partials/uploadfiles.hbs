@@ -3,8 +3,11 @@
   <form action="/workers/{{worker.id}}/upload" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="type">Type</label>
-      <input name="type" type="text" class="form-control {{#if error.type }}is-invalid{{/if}}" id="firstName"
-        placeholder="Enter type" value="{{ file.type }}">
+      <select name="type">
+        {{#each FileType}}
+          <option>{{this}}</option>
+        {{/each}}
+      </select>
       {{#if error.type}}
       <div class="invalid-feedback">
         {{error.type.message}}

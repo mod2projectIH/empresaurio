@@ -81,10 +81,10 @@
         <option>{{this}}</option>
       {{/each}}
     </select>
-    <p>or</p>
+    {{!-- <p>or</p>
     <a class="btn btn-primary" href="/contracts/new">new contract</a>
     <input name="contract" type="text" class="form-control {{#if error.contract }}is-invalid{{/if}}" id="contract"
-      placeholder="Enter contract" value="{{ worker.contract.name }}">
+      placeholder="Enter contract" value="{{ worker.contract.name }}"> --}}
     {{#if error.contract}}
     <div class="invalid-feedback">
       {{error.contract.message}}

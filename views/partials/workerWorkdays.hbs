@@ -1,0 +1,52 @@
+<div>
+
+  <div id="files-upload"></div>
+  <table class="table table-sm table-hover table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Start Time</th>
+          <th scope="col">End Time</th>
+          <th scope="col">Start Break</th>
+          <th scope="col">End Break</th>
+          <th scope="col">Worked Hours</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+
+        {{#each workdays}}
+        <tr id="row{{this.worker.id}}">
+          <th scope="row">{{formatDate this.day}}</th>
+          <td>{{formatHour this.startTime}}</td>
+          {{#if this.endTime}}
+            <td>{{formatHour this.endTime}}</td>
+          {{else}}
+            <td> </td>
+          {{/if}}
+          {{#if this.dailyBreakTime.start}}
+            <td>{{formatHour this.dailyBreakTime.start}}</td>
+          {{else}}
+            <td> </td>
+          {{/if}}
+          {{#if this.dailyBreakTime.finish}}
+            <td>{{formatHour this.dailyBreakTime.finish}}</td>
+          {{else}}
+            <td> </td>
+          {{/if}}
+          {{#if this.workedHours}}
+          <td>{{formatNumber this.workedHours}}</td>
+          {{else}}
+            <td> </td>
+          {{/if}}
+         
+        </tr>
+        {{/each}}
+      </tbody>
+
+
+
+    </table>
+ </div>
+
