@@ -4,6 +4,7 @@ const Workday = require("../models/workday.model")
 const ContractsList = require("../constants/contracts")
 const RolesList = require("../constants/roles")
 const StatesList = require("../constants/states")
+const FileType = require("../constants/fileType")
 
 const mongoose = require("mongoose");
 module.exports.workersIndex = (req, res, next) => {
@@ -17,15 +18,14 @@ module.exports.details = (req, res, next) => {
 	const id = req.params.id;
 
 	File.find({worker: id})
-		.populate("worker")
-
 		.then(files => {		
 			Workday.find({worker:id})
-			.populate("worker")
 			.then(workdays=>{
-				res.render("hr/details", { workdays, files, worker: workdays.worker });
-			}).catch(next)
-				
+				Worker.findById(id)
+				.then(worker=>{
+					res.render("hr/details", { workdays, files, worker, FileType});
+				}).catch(next)				
+			}).catch(next)				
 		}).catch(next)
 		
 };

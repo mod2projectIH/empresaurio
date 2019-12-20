@@ -27,6 +27,7 @@ router.get('/workers/:id', authMiddleware.isAuthenticated, authMiddleware.isHR, 
 
 router.get('/workers/:id/upload', authMiddleware.isAuthenticated,  fileController.uploadFile)
 router.post('/workers/:id/upload', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFile)
+router.post('/workers/:id/uploadDetails', authMiddleware.isAuthenticated,  upload.single('file'), fileController.doUploadFileDetails)
 
 router.get('/workers/:id/edit', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.edit)
 router.post('/workers/:id/edit', authMiddleware.isAuthenticated, authMiddleware.isHR, hrController.doEdit)

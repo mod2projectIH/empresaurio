@@ -4,6 +4,7 @@ const Workday = require("../models/workday.model");
 const ContractsList = require("../constants/contracts")
 const RolesList = require("../constants/roles")
 const StatesList = require("../constants/states")
+const FileType = require("../constants/fileType")
 
 const mongoose = require("mongoose");
 // const mailer = require("../config/mailer.config")
@@ -21,6 +22,7 @@ module.exports.index = (req, res, next) => {
           res.render("workers/index",{
             workers:workers,
             worker:worker,
+            FileType
           })
         })
       }else if(worker.isHR){
@@ -29,12 +31,14 @@ module.exports.index = (req, res, next) => {
         .then(workdays => {
           res.render("workers/index", {
             workdays:workdays,
-            worker:worker
+            worker:worker,
+            FileType
           })
         })
       }else{
         res.render("workers/index", {
-          worker: worker
+          worker: worker,
+          FileType
         })
       }
       
