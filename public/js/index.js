@@ -4,9 +4,10 @@ function editDelete(worker) {
 	).innerHTML = `<div class="d-flex flex-column justify-content-end align-items-center">
 		<div>
 		
-			<button type="submit" class="w-100 btn btn-info" id="update${worker.id}">
-				Edit worker ${worker.firstName} ${worker.lastName} 
-			</button>
+			
+			<a class="w-100 btn btn-info" href="/workers/${worker._id}/edit" class="btn btn-success">Edit worker ${worker.firstName} ${worker.lastName} </a>
+			
+	
 		</div>
 	</div>
 	<div class="d-flex flex-column justify-content-end align-items-center">

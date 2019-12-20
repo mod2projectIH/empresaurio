@@ -18,7 +18,10 @@
         <th scope="row">{{formatDate this.createdAt}}</th>
         <td>{{this.type}}</td>
         <td>{{this.description}}</td>
-        <td>{{worker.firstName}} {{worker.lastName}}</td>
+        <td>{{worker.firstName}} {{worker.lastName}}</td> <td>
+            <button class="btn btn-warning details" 
+              id="bar{{this.worker.id}}"></button>
+          </td>
         <td><a href="{{this.id}}">Download file</a></td>
 
       </tr>

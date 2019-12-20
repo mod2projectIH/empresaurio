@@ -1,0 +1,122 @@
+<div class="container-fluid">
+  <div class="d-flex flex-column justify-content-start align-items-top w-25 mb-5">
+        <a href="/" class="btn btn-success">Back</a>
+    </div>
+
+<form action="/workers/new" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input name="firstName" type="text" class="form-control {{#if error.firstName }}is-invalid{{/if}}" id="firstName"
+      placeholder="Enter name" value="{{ worker.firstName }}">
+    {{#if error.firstName}}
+    <div class="invalid-feedback">
+      {{error.firstName.message}}
+    </div>
+    {{/if}}
+    <label for="lastName">Last Name</label>
+    <input name="lastName" type="text" class="form-control {{#if error.lastName }}is-invalid{{/if}}" id="lastName"
+      placeholder="Enter name" value="{{ worker.lastName }}">
+    
+    {{#if error.lastName}}
+    <div class="invalid-feedback">
+      {{error.lasstName.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="number">Number</label>
+    <input name="number" type="text" class="form-control {{#if error.number }}is-invalid{{/if}}" id="number"
+      placeholder="Enter number" value="{{ worker.number }}">
+    {{#if error.number}}
+    <div class="invalid-feedback">
+      {{error.number.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input name="email" type="email" class="form-control {{#if error.email }}is-invalid{{/if}}" id="email"
+      placeholder="Enter email" value="{{ worker.email }}">
+    {{#if error.email}}
+    <div class="invalid-feedback">
+      {{error.email.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="profilePic">Pic</label>
+    <input name="profilePic" type="file" class="form-control-file {{#if error.profilePic }}is-invalid{{/if}}" id="profilePic"
+      placeholder="Enter profilePic url" value="{{ worker.profilePic }}">
+    {{#if error.profilePic}}
+    <div class="invalid-feedback">
+      {{error.profilePic.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input name="password" type="password" class="form-control {{#if error.password }}is-invalid{{/if}}" id="password"
+      placeholder="password" value="">
+    {{#if error.password}}
+    <div class="invalid-feedback">
+      {{error.password.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="workTeam">Work Team</label>
+    <input name="workTeam" type="text" class="form-control {{#if error.workTeam }}is-invalid{{/if}}" id="workTeam"
+      placeholder="Enter name" value="{{ worker.workTeam }}">
+      
+    {{#if error.workTeam}}
+    <div class="invalid-feedback">
+      {{error.workTeam.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="contract">Contract</label>
+    <select name="contract">
+      {{#each ContractsList}}
+        <option>{{this}}</option>
+      {{/each}}
+    </select>
+    <p>or</p>
+    <a class="btn btn-primary" href="/contracts/new">new contract</a>
+    <input name="contract" type="text" class="form-control {{#if error.contract }}is-invalid{{/if}}" id="contract"
+      placeholder="Enter contract" value="{{ worker.contract.name }}">
+    {{#if error.contract}}
+    <div class="invalid-feedback">
+      {{error.contract.message}}
+    </div>
+    {{/if}}
+  </div>  
+  <div class="form-group">
+    <label for="role">Role</label>
+    <select name="role">
+      {{#each RolesList}}
+        <option>{{this}}</option>
+      {{/each}}
+    </select>
+    {{#if error.role}}
+    <div class="invalid-feedback">
+      {{error.role.message}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="isHR">Human resources</label>
+    <input type="checkbox" name="isHR" value="true">
+    {{#if error.isHR}}
+    <div class="invalid-feedback">
+      {{error.isHR.message}}
+    </div>
+    {{/if}}
+  </div>
+  
+  <button type="submit" class="btn btn-primary">
+    Sign up
+  </button>
+</form>
+</div>
+
