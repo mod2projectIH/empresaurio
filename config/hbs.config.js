@@ -35,3 +35,10 @@ hbs.registerHelper('formatNumber', function(number){
     sec = Math.floor((number / 1000)%60)
   return `${hours}h ${min}min ${sec}sec`
 })
+
+hbs.registerHelper('classColor', function(user){
+  if (user.workday && user.workday.break){
+    return "break"
+  }
+  return user.isWorking ? "working" : "notWorking"
+})

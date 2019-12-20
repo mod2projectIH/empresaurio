@@ -5,29 +5,26 @@
         <th scope="col">Name</th>
         <th scope="col">is Working?</th>
         <th scope="col">Last Name</th>
-        <th scope="col">Work Team</th>
+        <th scope="col">First Name</th>
       </tr>
     </thead>
     <tbody>
       {{#each workers}}
-      <tr id="{{this.id}}">
-        <th scope="row">{{this.name}}</th>
-        {{#if this.workday.break}}
-            <td>Break</td>
+      
+      <tr class="{{classColor this}}" id="{{this.id}}">
+        <th scope="row">{{this.number}}</th>
+        {{#if this.workday}}
+          {{#if this.workday.break}}
+              <td>Break</td>
+          {{else}}
+              <td>{{this.isWorking}}</td>
+          {{/if}}
         {{else}}
           <td>{{this.isWorking}}</td>
         {{/if}}
 
         <td>{{this.lastName}}</td>
         <td>{{this.firstName}}</td>
-        <td>
-          <a href="/workers/{{this.id}}" class="btn btn-success">See
-            details</a>
-        </td>
-        <td>
-          <button class="btn btn-danger details" onclick="deploy({{toString this}})" id={{this.id}}>Deploy
-          </button>
-        </td>
 
 
       </tr>

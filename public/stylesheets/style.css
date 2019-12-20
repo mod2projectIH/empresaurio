@@ -10992,3 +10992,16 @@
  .list-group-item h6 {
    color: inherit;
  }
+
+ .working{
+   background: #78C2AD !important;
+   color:white;
+ }
+ .break{
+   background: #FFCE67 !important;
+   color:white;
+ }
+ .notWorking{
+   background:#FF7851 !important;
+   color:white;
+ }

@@ -8,29 +8,10 @@
           class="card-img-left w-75 justify-content-center rounded mt-3">
         <h5 class="card-title ">Welcome {{worker.firstName}} {{worker.lastName}}</h5>
       </div>
-
-      {{!-- Buttons for breaks --}}
-      {{#if worker.break}}
-      <div class="d-flex flex-column justify-content-end align-items-center">
-        <div>
-          <button type="submit" class="btn btn-danger" id="{{worker.id}}">
-            Press here to start your break
-          </button>
-        </div>
-      </div>
-      {{else}}
-      <div class="d-flex flex-column justify-content-end align-items-center">
-        <div class="mb-5">
-          <button type="submit" class="btn btn-danger">
-            Don't work
-          </button>
-        </div>
-      </div>
-      {{/if}}
       {{!-- A helper has been registered to enable if equals --}}
       {{#ifEquals worker.currentState "Working"}}
       <div class="d-flex flex-column justify-content-end align-items-center">
-        <p>You are logged in as <b>Worker</b>
+        <p>You are logged in as <b>{{worker.role}}</b>
         </p>
       </div>
       {{/ifEquals}}
