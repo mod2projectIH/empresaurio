@@ -1,8 +1,7 @@
-
-/*onclick="${doDelete(worker._id)}"/*/
 function editDelete(worker) {
-	
-	document.getElementById("edit").innerHTML = `<div class="d-flex flex-column justify-content-end align-items-center">
+	document.getElementById(
+		"edit"
+	).innerHTML = `<div class="d-flex flex-column justify-content-end align-items-center">
 		<div>
 		
 			<button type="submit" class="w-100 btn btn-info" id="update${worker.id}">
@@ -17,92 +16,54 @@ function editDelete(worker) {
 				Delete ${worker.firstName} ${worker.lastName} </button>
 		</div>
 		</form>
-	</div>`
-
+	</div>`;
 }
 
-// const doDelete = (id) =>{
-// // console.log(typeof(id) +  "ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-// 		return axios.delete(`http://localhost:3000/workers/delete/${id}`)
-// 		.then(response => response.data)
-// 		.catch(error=>{console.log(error.toJSON())})
+const checkWorkerProgress = workdays => {
+	console.log(workdays.startTime);
 
+	const startTime = formatDate(workdays.startTime);
+	console.log(startTime);
 
+	document.getElementById("progress-bar").innerHTML = `
+	<div class="progress">
+  <div class="float-left">
+    <h5>Start time ${startTime}</h5>
+  </div>
+  <div class="float-right">
+    <h5>End time ${endTime}</h5>
+  </div>
+  <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+    aria-valuemax="100"></div>
+</div>
+`;
+};
 
+const formatDate = date => {
+	return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+};
+const formatHour = date => {
+	return `${date.getHours()}:${
+		date.getMinutes() < 10 ? "0" + date.getMinutes() : "" + date.getMinutes()
+	}:${
+		date.getSeconds() < 10 ? "0" + date.getSeconds() : "" + date.getSeconds()
+	}`;
+};
 
-// }
+const formatNumber = number => {
+	hours = Math.floor((number / (1000 * 60 * 60)) % 24);
+	min = Math.floor((number / (1000 * 60)) % 60);
+	sec = Math.floor((number / 1000) % 60);
+	return `${hours}h ${min}min ${sec}sec`;
+};
 
-// const deleteById = (worker) => {
+// //Format date
+// hbs.registerHelper("formatHour", function(date) {
+// 	return `${date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : "" + date.getMinutes()}:${date.getSeconds() < 10 ? "0" + date.getSeconds() : "" + date.getSeconds()}`;
+// });
 
-// 	let id = worker.id
-// 	doDelete(id)
+// hbs.registerHelper("formatDate", function(date) {
+// 	r;
+// });
 
-// }
-
-const checkWorkerProgress = (worker) =>{
-console.log(worker._id)
-	document.getElementById("progress-bar").innerHTML =  `
-
-	<div class=" progress-bar-striped progress-bar-striped mb-5 border-secondary" role="progressbar" style="width:100%;"
-		aria-valuenow="25" aria-valuemin="0" aria-valuemax="100""><h5>${worker.firstName} ${worker.lastName} progress</h5><div class="float-left"><h5>Start time</h5></div>
-<div class="float-right"><h5>End time</h5></div>
-    
-		<div class=" progress-bar progress-bar-danger w-100">${worker.firstName}</div>
-		
-		</div>
-`
-	}
-
-
-
-
-
-
-
-// const insertUpload = (worker) =>{
-
-// document.getElementById("files-upload").innerHTML = `<div class="container-fluid">
-  
-// <form action="/workers/${worker._id}/upload" method="POST" enctype="multipart/form-data">
-// 	<div class="form-group">
-// 		<label for="type">Type</label>
-// 		<input name="type" type="text" class="form-control" id="firstName"
-// 			placeholder="Enter type" value="Type">
-		
-		
-	
-// 	</div>
-// 	<div class="form-group">
-// 		<label for="type">Description</label>
-// 		<input name="description" type="text" class="form-control" id="firstName"
-// 			placeholdeworkerr="Enter description" value="Description">
-		
-		
-		
-// 	</div>
-// 	<div class="form-group">
-// 		<label for="file">Upload file</label>
-// 		<input name="file" type="file" class="form-control-file " id="profilePic"
-// 			placeholder="Upload file" value="Upload" id="file-upload">
-	
-		
-// 	</div>
-// 	<button type="submit" class="btn btn-primary mt-5 w-100">
-// 		Upload
-// 	</button>
-// </form>
-// </div>
-// `
-// }
-
-// const doUploadFile = (worker) => {
-// 	const formData = new formData()
-// 	const imgFile = document.getElementById("file-upload")
-// 	formData.append("image", imagefile.files[0])
-
-// 	axios.post({url: `/workers/${worker._id}/uploadFiles`, formData, headers:{'Content-Type': 'multipart/form-data'})
-// 	.then(worker=> req.params)
-
-
-
-// }
+// hbs.registerHelper("formatNumber", function(number) {});

@@ -1,47 +1,57 @@
 <div class="container-fluid">
   <div id="edit"></div>
-  <table class="table table-sm table-hover table-striped mb-5" id="control">
-    <thead>
-      <tr>
-        <th scope="col">Start Time</th>
-        <th scope="col">Number</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Work Team</th>
-      </tr>
-    </thead>
-    <div id="progress-bar"></div>
-    <tbody>
-      {{#each workdays}}
 
-      <tr id="{{this.worker.id}}">
-        <th scope="row">{{formatDate this.startTime}}</th>
-        <td>{{this.worker.number}}</td>
-        <td>{{this.worker.lastName}}</td>
-        <td>{{this.worker.workTeam}}</td>
-        <td>
-          <a href="/workers/{{this.worker.id}}" class="btn btn-success">See
-            details</a>
-        </td>
-        <td>
-          <button class="btn btn-danger details" onclick="editDelete({{toString this.worker}})">Edit/delete
-
-          </button>
-        </td>
-        <td>
-          <button class="btn btn-warning details" onclick="checkWorkerProgress({{toString this.worker}})"
-            id={{this.worker.id}}>Check worker progress
-
-          </button>
-        </td>
+  {{#each workdays}}
+  <div class="d-flex flex-row w-100 card">
+    <table class="table table-sm table-hover table-striped" id="control">
+      <thead>
+        <tr>
+          <th scope="col">Start Time</th>
+          <th scope="col">Number</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Work Team</th>
+        </tr>
+      </thead>
 
 
+      <tbody>
 
-      </tr>
+
+        <tr id="{{this.worker.id}}">
+          <th scope="row">{{formatDate this.startTime}}</th>
+          <td>{{this.worker.number}}</td>
+          <td>{{this.worker.lastName}}</td>
+          <td>{{this.worker.workTeam}}</td>
+          <td>
+            <a href="/workers/{{this.worker.id}}" class="btn btn-success">See
+              details</a>
+          </td>
+          <td>
+            <button class="btn btn-danger details" onclick="editDelete({{toString this.worker}})">Edit/delete
+
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning details" onclick="checkWorkerProgress({{formatHour this.startTime}})"
+              id={{this.worker.id}}>Check worker progress
+
+            </button>
+          </td>
 
 
-      {{/each}}
 
-    </tbody>
+        </tr>
+        <tr>
+          <td colspan="12">{{> progressBar}}</td>
+        </tr>
 
-  </table>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  {{/each}}
+
+
 </div>
