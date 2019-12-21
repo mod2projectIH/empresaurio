@@ -49,7 +49,26 @@ HR.save()
 		throw new Error(`impossible to add the worker ${error}`);
 	});
 
-
+	const teamLeader = new Worker({
+		number: 3,
+		lastName: "Team",
+		firstName: "Leader",
+		email: "team@team.com",
+		password: "123123123",
+		profilePic: "https://cdn3.f-cdn.com/contestentries/1386480/30568225/5b6731e0f1b4f_thumb900.jpg",
+		workTeam: "Development",
+		role: "Team leader",
+		
+		isHR: false,
+		break: false,
+		currentState: "Working",
+	});
+	teamLeader.save()
+		.then(console.log(teamLeader))
+		.catch(error => {
+			throw new Error(`impossible to add the worker ${error}`);
+		});
+	
 
 	const workerIds = []
 	Promise.all([
