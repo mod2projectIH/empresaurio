@@ -52,7 +52,7 @@ hbs.registerHelper("substractMinutes", function(date) {
 	const totalMin = 480;
 	let now = Date.now();
 	const nowDate = new Date(now);
-	const startDate = new Date("December 20, 2019 15:00:32");
+	const startDate = new Date("December 21, 2019 06:00:32");
 
 	const hourDiff = nowDate - startDate;
 	const diffHrs = Math.round((hourDiff % 86400000) / 3600000);
