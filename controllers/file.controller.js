@@ -24,7 +24,6 @@ module.exports.uploadFile = (req, res, next) => {
 };
 
 module.exports.doUploadFile = (req, res, next) => {
-	console.log(req.currentWorker._id + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 	const file = new File({
 		type: req.body.type,
 		description: req.body.type, 

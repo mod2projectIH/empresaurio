@@ -73,7 +73,7 @@ module.exports.edit = (req, res, next) => {
 module.exports.doEdit = (req, res, next) => {
   const id = req.params.id;
  
-    Worker.findByIdAndUpdate(id, req.body)
+    Worker.findByIdAndUpdate(id, req.body, {new: true})
       .then(worker => {
         console.log(worker);
         res.redirect("/workers");
