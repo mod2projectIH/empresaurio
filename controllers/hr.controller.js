@@ -75,7 +75,8 @@ module.exports.doEdit = (req, res, next) => {
  
     Worker.findByIdAndUpdate(id, req.body, {new: true})
       .then(worker => {
-        console.log(worker);
+				console.log(worker);
+				worker.save()
         res.redirect("/workers");
       })
       .catch(error => {
