@@ -14,7 +14,6 @@ require('./config/hbs.config');
 require('./config/db.config');
 // require('./config/mailer.config');
 const session = require('./config/session.config');
-mongoose.connect(process.env.MONGODB_URI)
 
 /**
  * Configure express
