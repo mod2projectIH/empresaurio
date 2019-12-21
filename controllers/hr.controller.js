@@ -73,7 +73,7 @@ module.exports.edit = (req, res, next) => {
 module.exports.doEdit = (req, res, next) => {
   const id = req.params.id;
  
-    Worker.findByIdAndUpdate(id, req.body, {new: true})
+    Worker.findByIdAndUpdate(id, req.body)
       .then(worker => {
 				console.log(worker);
 				worker.save()
